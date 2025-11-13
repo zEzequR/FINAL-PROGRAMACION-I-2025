@@ -18,6 +18,7 @@ namespace FINAL_PROGRAMACIÓN_I
     public partial class frmLogin : Form
     {
         public static string username;
+        public static int id;
         Controladores Controladores = new Controladores();
         Usuario user = new Usuario();
         public frmLogin()
@@ -51,10 +52,13 @@ namespace FINAL_PROGRAMACIÓN_I
         {
             if (int.TryParse(passwrdInp.Text, out int psw))
             {
-                user = user.setUsuario(userInp.Text, psw);
+                int ID = Controladores.getuserID("spu_get_id_usuario", userInp.Text);
 
-                System.Diagnostics.Debug.WriteLine("Usuario: " + user.usuario + " Contraseña: " + user.psw);
+                user = user.setUsuario(ID, userInp.Text, psw);
 
+                System.Diagnostics.Debug.WriteLine("ID: " + user.id_usuario + "Usuario: " + user.usuario + " Contraseña: " + user.psw);
+
+                Console.WriteLine("aca");
                 bool response = Controladores.Logincomparision("spu_login",
                     new List<string> { "@usuario", "@psw" },
                     new List<object> { user.usuario, user.psw });
@@ -62,6 +66,7 @@ namespace FINAL_PROGRAMACIÓN_I
                 if (response)
                 {
                     username = user.usuario;
+                    id = user.id_usuario;
                     MessageBox.Show("Bienvenido " + userInp.Text, "Sesión inicada con éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     Controladores.LimpiarCampos(new List<BunifuTextBox> { userInp, passwrdInp });
                     frmMain main = new frmMain();
@@ -71,12 +76,14 @@ namespace FINAL_PROGRAMACIÓN_I
                 {
                     MessageBox.Show("Usuario o contraseña incorrectos. Por favor, intente nuevamente.", "Error de autenticación", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     Controladores.LimpiarCampos(new List<BunifuTextBox> { userInp, passwrdInp });
+                    userInp.Focus();
                 }
             }
             else
             {
                 MessageBox.Show("La contraseña deben ser números. Por favor, intente nuevamente.", "Error de formato", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Controladores.LimpiarCampos(new List<BunifuTextBox> { userInp, passwrdInp });
+                userInp.Focus();
                 return;
             }
 

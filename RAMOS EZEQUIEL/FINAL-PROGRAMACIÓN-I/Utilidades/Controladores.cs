@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Data;
+using System.Runtime.Remoting.Messaging;
 
 namespace FINAL_PROGRAMACIÓN_I.Utilidades
 {
@@ -24,7 +25,7 @@ namespace FINAL_PROGRAMACIÓN_I.Utilidades
 
         public void MostrarDatos(string procedureName, DataGridView tableName, List<string> sqlParameters, List<object> parameters, bool haveParameters)
         {
-            if(haveParameters == false)
+            if (haveParameters == false)
             {
                 try
                 {
@@ -104,15 +105,16 @@ namespace FINAL_PROGRAMACIÓN_I.Utilidades
             }
             else if (mode == 'E' || mode == 'U')
             {
+                SqlCommand cmd = null;
                 try
                 {
-                    SqlCommand cmd = new SqlCommand(procedureName, new Conexion().Connect());
+                    cmd = new SqlCommand(procedureName, new Conexion().Connect());
                     cmd.CommandType = CommandType.StoredProcedure;
                     for (int i = 0; i < sqlParameters.Count; i++)
                     {
                         cmd.Parameters.AddWithValue(sqlParameters[i], parametros[i]);
                     }
-                    cmd.ExecuteNonQuery();
+                    int rows = cmd.ExecuteNonQuery();
                 }
                 catch (SqlException ex)
                 {
@@ -156,15 +158,36 @@ namespace FINAL_PROGRAMACIÓN_I.Utilidades
             int lastID = 0;
             SqlCommand cmd = new SqlCommand(procedureName, new Conexion().Connect());
             cmd.CommandType = CommandType.StoredProcedure;
+
             SqlParameter outputParam = new SqlParameter("@NextID", SqlDbType.Int)
             {
                 Direction = ParameterDirection.Output
             };
+
             cmd.Parameters.Add(outputParam);
             cmd.ExecuteNonQuery();
 
             lastID = (int)outputParam.Value;
+
+            return lastID;
+        }
+
+        public int getuserID(string procedureName, string username)
+        {
+            int lastID = 0;
+            SqlCommand cmd = new SqlCommand(procedureName, new Conexion().Connect());
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter outputParam = new SqlParameter("@getID", SqlDbType.Int)
+            {
+                Direction = ParameterDirection.Output
+            };
+
+            cmd.Parameters.Add(outputParam);
+            cmd.Parameters.AddWithValue("@username", username);
             cmd.ExecuteNonQuery();
+
+            lastID = (int)outputParam.Value;
 
             return lastID;
         }
@@ -223,6 +246,7 @@ namespace FINAL_PROGRAMACIÓN_I.Utilidades
 
         public bool Logincomparision(string procedureName, List<string> parametersSQL, List<Object> parametros)
         {
+            SqlDataReader response = null;
             try
             {
                 SqlCommand cmd = new SqlCommand(procedureName, new Conexion().Connect());
@@ -231,7 +255,7 @@ namespace FINAL_PROGRAMACIÓN_I.Utilidades
                 {
                     cmd.Parameters.AddWithValue(parametersSQL[i], parametros[i]);
                 }
-                SqlDataReader response = cmd.ExecuteReader();
+                response = cmd.ExecuteReader();
 
                 if (response.HasRows)
                 {
@@ -245,6 +269,10 @@ namespace FINAL_PROGRAMACIÓN_I.Utilidades
             catch (Exception ex)
             {
                 return false;
+            }
+            finally
+            { 
+                response.Close();
             }
         }
 

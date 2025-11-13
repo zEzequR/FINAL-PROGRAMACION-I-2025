@@ -45,6 +45,25 @@ precio_r DECIMAL(18,2)
 --STORE PROCEDURES
 
 --USUARIOS
+
+CREATE PROCEDURE spu_get_id_usuario
+    @getID INT OUTPUT,
+    @username NVARCHAR(60)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DECLARE @ID INT;
+    SET @ID = NULL;
+
+    SELECT @ID = id_usuario
+    FROM Usuarios
+    WHERE usuario LIKE @username;
+
+    -- si no encontró nada, devolver -1; si encontró, devolver el id
+    SET @getID = ISNULL(@ID, -1);
+END;
+
 CREATE PROCEDURE spu_login
 @usuario NVARCHAR(60),
 @psw INT
@@ -91,8 +110,19 @@ AS
 UPDATE Clientes SET razon_social = @razon_social WHERE id_cliente = @id_cliente
 
 CREATE PROCEDURE spu_id_nuevo_cliente
+    @NextID INT OUTPUT
 AS
-SELECT MAX(id_cliente) + 1 AS id from Clientes
+BEGIN
+    SET NOCOUNT ON;
+
+    DECLARE @next INT;
+
+    SELECT @next = ISNULL(MAX(id_cliente), 0) + 1
+    FROM Clientes;
+
+    -- Asignar al parámetro OUTPUT correctamente
+    SET @NextID = @next;
+END;
 
 --PRODUCTOS
 
@@ -131,7 +161,33 @@ BEGIN
     END
 END
 
+CREATE PROCEDURE spu_mostrar_prodStock
+AS
+SELECT * FROM PRODUCTOS WHERE Stock >= 1
+
 EXEC spu_mostrar_productos
+
+ALTER PROCEDURE spu_buscar_producto
+@desc NVARCHAR(60)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SET @desc = ISNULL(LTRIM(RTRIM(@desc)), '');
+
+    DECLARE @pattern NVARCHAR(62);
+
+    IF LEN(@desc) = 0
+        SET @pattern = '%';
+    ELSE IF LEN(@desc) = 1
+        SET @pattern = @desc + '%';   -- empiezan con
+    ELSE
+        SET @pattern = '%' + @desc + '%'; -- contienen
+
+    SELECT *
+    FROM Productos
+    WHERE descripcion LIKE @pattern;
+END;
 
 CREATE PROCEDURE spu_cargar_productos
 @codigo INT,
@@ -147,9 +203,28 @@ CREATE PROCEDURE spu_eliminar_productos
 AS
 DELETE FROM Productos WHERE codigo = @codigo
 
-CREATE PROCEDURE spu_id_nuevo_producto
+CREATE PROCEDURE spu_modificar_productos
+@codigo INT,
+@descripcion NVARCHAR(60),
+@stock INT,
+@precio DECIMAL(18,2)
 AS
-SELECT MAX(codigo) + 1 AS id from Productos
+UPDATE Productos SET descripcion = @descripcion, stock = @stock, precio = @precio WHERE codigo = @codigo
+
+CREATE PROCEDURE spu_id_nuevo_producto
+    @NextID INT OUTPUT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DECLARE @next INT;
+
+    SELECT @next = ISNULL(MAX(codigo), 0) + 1
+    FROM Productos;
+
+    -- Asignar al parámetro OUTPUT correctamente
+    SET @NextID = @next;
+END;
 
 
 --VENTAS
@@ -157,13 +232,42 @@ SELECT MAX(codigo) + 1 AS id from Productos
 CREATE PROCEDURE spu_cargar_venta
 @id_venta INT,
 @fecha DATETIME,
-@id_cliente INT,
+@id_cliente NVARCHAR(60),
 @id_usuario INT
 AS
 INSERT INTO Ventas
 VALUES(@id_venta, @fecha, @id_cliente, 0, @id_usuario)
 
 --ALTA/BAJA DETALLE DE VENTA
+
+CREATE PROCEDURE spu_id_nueva_venta
+    @NextID INT OUTPUT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DECLARE @next INT;
+
+    SELECT @next = ISNULL(MAX(id_venta), 0) + 1
+    FROM Ventas;
+
+    -- Asignar al parámetro OUTPUT correctamente
+    SET @NextID = @next;
+END;
+
+CREATE PROCEDURE spu_eliminar_venta
+@idVta INT
+AS
+DELETE FROM Ventas WHERE id_venta = @idVta
+
+CREATE PROCEDURE spu_actualizar_ventas
+@id_venta INT,
+@id_cliente INT,
+@importe DECIMAL(19,2)
+AS
+UPDATE Ventas SET id_cliente = @id_cliente, importe = @importe WHERE id_venta = @id_venta
+
+--DETALLE DE VENTA
 
 CREATE PROCEDURE spu_cargar_detalle_venta
 @id_detalle_venta INT,
@@ -176,32 +280,54 @@ AS
 INSERT INTO Detalle_Venta
 VALUES(@id_detalle_venta, @id_venta, @codigo, @precio, @cantidad, @precio_r);
 
-CREATE PROCEDURE spu_id_nueva_venta
+CREATE PROCEDURE spu_eliminar_prod_detVta
+@codProd INT
 AS
-SELECT MAX(id_venta) + 1 AS id from Ventas
+DELETE FROM Detalle_Venta WHERE codigo = @codProd
 
-CREATE PROCEDURE spu_eliminar_detalle_venta
-@id_detalle_venta INT
+CREATE PROCEDURE spu_mostrar_detalle_venta
+@id_vta INT
 AS
-DELETE FROM Detalle_Venta WHERE id_detalle_venta = @id_detalle_venta
+SELECT 
+--M.id_detalle_venta,
+--M.id_venta,
+--V.id_cliente AS id_cliente,
+C.razon_social    AS Cliente,
+--V.id_usuario,
+U.usuario         AS Usuario,
+M.codigo AS 'Código del producto',
+P.descripcion AS 'Producto',
+M.precio AS Precios,
+M.cantidad AS Cantidad,
+M.precio_r AS Subtotal
+FROM Detalle_Venta M
+INNER JOIN Ventas V ON V.id_venta = M.id_venta
+INNER JOIN Clientes C ON V.id_cliente = C.id_cliente
+INNER JOIN Productos P ON M.codigo = P.codigo
+INNER JOIN Usuarios U ON V.id_usuario = U.id_usuario
+WHERE M.id_venta = @id_vta
 
-CREATE PROCEDURE spu_actualizar_ventas
-@id_venta INT,
-@id_cliente INT,
-@importe DECIMAL(19,2)
-AS
-UPDATE Ventas SET id_cliente = @id_cliente, importe = @importe WHERE id_venta = @id_venta
+EXEC spu_mostrar_detalle_venta 1
 
---DETALLE DE VENTA
-CREATE PROCEDURE spu_nuevo_detalle_vta
-@id_venta INT,
-@codigo INT,
-@precio DECIMAL(18,2),
-@cantidad INT,
-@precio_r DECIMAL(18,2)
+CREATE PROCEDURE spu_id_nuevo_detalleVta
+    @NextID INT OUTPUT
 AS
-INSERT INTO Detalle_Venta
-VALUES(@id_venta, @codigo, @precio, @cantidad, (@precio * @cantidad))
+BEGIN
+    SET NOCOUNT ON;
+
+    DECLARE @next INT;
+
+    SELECT @next = ISNULL(MAX(id_detalle_venta), 0) + 1
+    FROM Detalle_Venta;
+
+    -- Asignar al parámetro OUTPUT correctamente
+    SET @NextID = @next;
+END;
+
+CREATE PROCEDURE spu_cancelar_detalle_vta
+@id_Vta INT
+AS
+DELETE FROM Detalle_Venta WHERE id_venta = @id_Vta
 
 --BACKUP
 CREATE PROCEDURE spu_backup
@@ -212,20 +338,43 @@ BACKUP DATABASE [Comercio]
 TO DISK = @MyFileName
 
 
-
 --TRIGGERS
 
-CREATE TRIGGER baja_stock ON Detalle_Venta
-FOR INSERT
+ALTER TRIGGER baja_stock ON Detalle_Venta
+AFTER INSERT
 AS
-UPDATE Productos SET stock = (stock - inserted.cantidad)
-WHERE codigo = (SELECT codigo FROM inserted)
+BEGIN
+    SET NOCOUNT ON;
+
+    UPDATE p
+    SET p.stock = p.stock - i.total_qty
+    FROM dbo.Productos p
+    JOIN (
+        SELECT codigo, SUM(cantidad) AS total_qty
+        FROM inserted
+        GROUP BY codigo
+    ) AS i
+      ON p.codigo = i.codigo;
+END;
+
 
 CREATE TRIGGER sube_stock ON Detalle_Venta
-FOR DELETE
+AFTER DELETE
 AS
-UPDATE Productos SET stock = stock + (SELECT cantidad from deleted)
-WHERE codigo = (SELECT codigo FROM deleted)
+BEGIN
+    SET NOCOUNT ON;
+
+    UPDATE p
+    SET p.stock = p.stock + i.total_qty
+    FROM dbo.Productos p
+    JOIN (
+        SELECT codigo, SUM(cantidad) AS total_qty
+        FROM deleted
+        GROUP BY codigo
+    ) AS i
+      ON p.codigo = i.codigo;
+END;
+
 
 CREATE TRIGGER insertar_precio ON Detalle_Venta
 FOR INSERT, UPDATE
@@ -263,17 +412,17 @@ INNER JOIN Usuarios  U ON V.id_usuario = U.id_usuario;
 CREATE VIEW vw_mostrar_detalle_venta
 AS
 SELECT 
-M.id_detalle_venta,
-M.id_venta,
+--M.id_detalle_venta,
+--M.id_venta,
 --V.id_cliente AS id_cliente,
-C.razon_social    AS razon_social_cliente,
+C.razon_social    AS Cliente,
 --V.id_usuario,
-U.usuario         AS nombre_usuario,
-M.codigo,
-P.descripcion AS nombre_producto,
-M.precio,
-M.cantidad,
-M.precio_r
+U.usuario         AS Usuario,
+M.codigo AS 'Código del producto',
+P.descripcion AS 'Producto',
+M.precio AS Precios,
+M.cantidad AS Cantidad,
+M.precio_r AS Subtotal
 FROM Detalle_Venta M
 INNER JOIN Ventas V ON V.id_venta = M.id_venta
 INNER JOIN Clientes C ON V.id_cliente = C.id_cliente
@@ -318,3 +467,17 @@ SELECT * FROM Usuarios
 SELECT * FROM Ventas
 SELECT * FROM Productos
 SELECT * FROM Clientes
+SELECT * FROM Detalle_Venta
+
+SELECT * FROM Ventas
+
+DELETE FROM Ventas WHERE id_cliente = 1
+DELETE FROM Detalle_Venta WHERE precio = 2000
+
+EXEC spu_cargar_venta 1, '11-11-25', 1, 1
+EXEC spu_nuevo_detalle_vta 1,1,2,4000,2,8000
+
+EXEC spu_mostrar_detalle_venta 9
+
+UPDATE Productos SET stock = 20 WHERE precio = 4000
+
