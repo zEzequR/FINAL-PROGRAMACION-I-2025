@@ -30,6 +30,39 @@ namespace FINAL_PROGRAMACIÓN_I.Formularios
                 new List<object> { },
                 false
                 );
+
+            DataTable Proveedores = controladores.getData("spu_mostrar_proveedores",
+                new List<string> { },
+                new List<string> { },
+                'N'
+                );
+
+            List<Proveedor> listProv = new List<Proveedor>();
+
+            foreach (DataRow row in Proveedores.Rows)
+            {
+                Proveedor prov = new Proveedor(row.Field<int>("ID"),
+                    row.Field<string>("Proveedor"),
+                    row.Field<string>("Teléfono"),
+                    row.Field<string>("Email")
+                    );
+                listProv.Add(prov);
+            }
+
+            provSelect.DataSource = listProv;
+            provSelect.DisplayMember = "nombre_Proveedor";
+            provSelect.ValueMember = "id_proveedor";
+
+            //REVISAR!!
+
+            //foreach (DataGridViewRow row in productsTable.Rows)
+            //{
+            //    if (row.Cells[3].Value.ToString() == "0")
+            //    {
+            //        row.DefaultCellStyle.BackColor = Color.LightCoral;
+            //    }
+            //}
+
         }
 
         private void clientsTable_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -40,8 +73,8 @@ namespace FINAL_PROGRAMACIÓN_I.Formularios
             }
             codProdInp.Text = productsTable.Rows[e.RowIndex].Cells[0].Value.ToString();
             descProdInp.Text = productsTable.Rows[e.RowIndex].Cells[1].Value.ToString();
-            stockProdInp.Text = productsTable.Rows[e.RowIndex].Cells[2].Value.ToString();
-            precioProdInp.Text = productsTable.Rows[e.RowIndex].Cells[3].Value.ToString();
+            stockProdInp.Text = productsTable.Rows[e.RowIndex].Cells[3].Value.ToString();
+            precioProdInp.Text = productsTable.Rows[e.RowIndex].Cells[4].Value.ToString();
         }
 
         private void addBtn_Click(object sender, EventArgs e)
@@ -102,7 +135,7 @@ namespace FINAL_PROGRAMACIÓN_I.Formularios
         {
             confirmBtn.Text = "Eliminar";
 
-            controladores.LimpiarCampos(new List<BunifuTextBox> { codProdInp, 
+            controladores.LimpiarCampos(new List<BunifuTextBox> { codProdInp,
             descProdInp,
             stockProdInp,
             precioProdInp
@@ -124,6 +157,7 @@ namespace FINAL_PROGRAMACIÓN_I.Formularios
                 verXIDCheckbox.Checked = false;
                 verXStockCheckbox.Checked = false;
                 verXPrecioCheckbox.Checked = false;
+                verXProvCheckBox.Checked = false;
             }
         }
 
@@ -159,6 +193,31 @@ namespace FINAL_PROGRAMACIÓN_I.Formularios
             }
         }
 
+        private void verXProvCheckBox_CheckedChanged(object sender, Bunifu.UI.WinForms.BunifuCheckBox.CheckedChangedEventArgs e)
+        {
+            if (verXProvCheckBox.Checked && verTodosCheckbox.Checked)
+            {
+                verTodosCheckbox.Checked = false;
+            }
+        }
+
+        private void btnImprimir_Click(object sender, EventArgs e)
+        {
+            DataTable dtProductos = (DataTable)productsTable.DataSource;
+
+            if (dtProductos.Columns.Contains("Código"))
+            {
+                dtProductos.Columns["Código"].ColumnName = "Codigo";
+            }
+            if (dtProductos.Columns.Contains("Descripción"))
+            {
+                dtProductos.Columns["Descripción"].ColumnName = "Descripcion";
+            }
+
+            frmReportes frmReportes = new frmReportes(this, dtProductos);
+            frmReportes.ShowDialog();
+        }
+
         private void confirmBtn_Click(object sender, EventArgs e)
         {
             switch (confirmBtn.Text)
@@ -166,7 +225,7 @@ namespace FINAL_PROGRAMACIÓN_I.Formularios
                 case "Agregar":
                     if (int.TryParse(codProdInp.Text, out int id) && int.TryParse(stockProdInp.Text, out int stck) && decimal.TryParse(precioProdInp.Text, out decimal price))
                     {
-                        Producto product = new Producto(id, descProdInp.Text, stck, price);
+                        Producto product = new Producto(id, descProdInp.Text, Convert.ToInt32(provSelect.SelectedValue?.ToString()), stck, price);
 
                         controladores.subirDatos("spu_cargar_productos",
                             new List<string> { "@codigo", "@descripcion", "@stock", "@precio" },
@@ -207,7 +266,7 @@ namespace FINAL_PROGRAMACIÓN_I.Formularios
                 case "Eliminar":
                     if (int.TryParse(codProdInp.Text, out int id2) && int.TryParse(stockProdInp.Text, out int stck2) && decimal.TryParse(precioProdInp.Text, out decimal price2))
                     {
-                        Producto product = new Producto(id2, descProdInp.Text, stck2, price2);
+                        Producto product = new Producto(id2, descProdInp.Text, Convert.ToInt32(provSelect.SelectedValue?.ToString()), stck2, price2);
 
                         controladores.subirDatos("spu_eliminar_productos",
                             new List<string> { "@codigo" },
@@ -239,7 +298,7 @@ namespace FINAL_PROGRAMACIÓN_I.Formularios
                 case "Modificar":
                     if (int.TryParse(codProdInp.Text, out int id3) && int.TryParse(stockProdInp.Text, out int stck3) && decimal.TryParse(precioProdInp.Text, out decimal price3))
                     {
-                        Producto product = new Producto(id3, descProdInp.Text, stck3, price3);
+                        Producto product = new Producto(id3, descProdInp.Text, Convert.ToInt32(provSelect.SelectedValue?.ToString()), stck3, price3);
 
                         controladores.subirDatos("spu_modificar_productos",
                              new List<string> { "@codigo", "@descripcion", "@stock", "@precio" },
@@ -270,7 +329,38 @@ namespace FINAL_PROGRAMACIÓN_I.Formularios
                     }
                     break;
                 case "Ver":
-                    Debug.WriteLine("ver");
+                    int.TryParse(codProdInp.Text, out int id4);
+                    string descrip = descProdInp.Text;
+                    int.TryParse(stockProdInp.Text, out int stock4);
+                    decimal.TryParse(precioProdInp.Text, out decimal price4);
+
+
+                    Producto producto = new Producto(id4, descrip, Convert.ToInt32(provSelect.SelectedValue), stock4, price4);
+
+                    if (verTodosCheckbox.Checked)
+                    {
+                        controladores.MostrarDatos("spu_mostrar_productos",
+                            productsTable,
+                            new List<string> { },
+                            new List<object> { },
+                            false
+                        );
+                    }
+                    else
+                    {
+                        controladores.MostrarDatos("spu_mostrar_productos",
+                            productsTable,
+                            new List<string> { "@codigo", "@descripcion", "@id_prov", "@stock", "@precio" },
+                            new List<object> {
+                                verXIDCheckbox.Checked ? (object)producto.codigo : DBNull.Value,
+                                verXDescCheckbox.Checked ? (object)producto.descripcion : DBNull.Value,
+                                verXProvCheckBox.Checked ? (object)producto.id_proveedor : DBNull.Value,
+                                verXStockCheckbox.Checked ? (object)producto.stock : DBNull.Value,
+                                verXPrecioCheckbox.Checked ? (object)producto.precio : DBNull.Value
+                            },
+                            true
+                        );
+                    }
                     break;
                 default:
                     MessageBox.Show("Porfavor, seleccione una opción", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -285,12 +375,15 @@ namespace FINAL_PROGRAMACIÓN_I.Formularios
             verXIDCheckbox.Checked = false;
             verXStockCheckbox.Checked = false;
             verXPrecioCheckbox.Checked = false;
+            verXProvCheckBox.Checked = false;
 
             verXDescCheckbox.Enabled = false;
             verTodosCheckbox.Enabled = false;
             verXIDCheckbox.Enabled = false;
             verXStockCheckbox.Enabled = false;
+            verXStockCheckbox.Enabled = false;
             verXPrecioCheckbox.Enabled = false;
+            verXProvCheckBox.Enabled = false;
         }
 
         private void EnableAndResetCheckboxesForView()
@@ -300,12 +393,14 @@ namespace FINAL_PROGRAMACIÓN_I.Formularios
             verXIDCheckbox.Checked = false;
             verXStockCheckbox.Checked = false;
             verXPrecioCheckbox.Checked = false;
+            verXProvCheckBox.Checked = false;
 
             verXDescCheckbox.Enabled = true;
             verTodosCheckbox.Enabled = true;
             verXIDCheckbox.Enabled = true;
             verXStockCheckbox.Enabled = true;
             verXPrecioCheckbox.Enabled = true;
+            verXProvCheckBox.Enabled = true;
         }
     }
 }

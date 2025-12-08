@@ -9,12 +9,24 @@ id_cliente INT PRIMARY KEY,
 razon_social NVARCHAR(60)
 )
 
+CREATE TABLE Proveedores(
+id_proveedor INT,
+nombre_Proveedor NVARCHAR(60),
+telefono NVARCHAR(15),
+email VARCHAR(254),
+PRIMARY KEY (id_proveedor)
+);
+
 CREATE TABLE Productos(
 codigo INT PRIMARY KEY,
 descripcion NVARCHAR(60),
 stock INT,
 precio DECIMAL(18,2)
 )
+
+ALTER TABLE Productos
+ADD
+    proveedor INT FOREIGN KEY REFERENCES Proveedores(id_proveedor)
 
 CREATE TABLE Ventas(
 id_venta INT PRIMARY KEY,
@@ -45,6 +57,12 @@ precio_r DECIMAL(18,2)
 --STORE PROCEDURES
 
 --USUARIOS
+
+CREATE PROCEDURE spu_mostrar_usuarios
+AS
+SELECT * FROM Usuarios
+
+EXEC spu_mostrar_usuarios
 
 CREATE PROCEDURE spu_get_id_usuario
     @getID INT OUTPUT,
@@ -82,7 +100,8 @@ BEGIN
 END
 ELSE
 BEGIN
-    SELECT * FROM Clientes
+    SELECT id_cliente AS ID, razon_social AS 'Razón Social'
+    FROM Clientes
     WHERE
     (@id_cliente IS NULL OR id_cliente = @id_cliente)
     AND
@@ -90,6 +109,8 @@ BEGIN
 END
 
 EXEC spu_mostrar_clientes
+
+EXEC spu_mostrar_clientes NULL, 'eze'
 
 CREATE PROCEDURE spu_cargar_cliente
 @id_cliente INT,
@@ -124,11 +145,92 @@ BEGIN
     SET @NextID = @next;
 END;
 
+--PROVEEDORES
+CREATE PROCEDURE spu_mostrar_proveedores
+    @id_proveedor INT = NULL,
+    @nombre_Proveedor NVARCHAR(60) = NULL,
+    @telefono NVARCHAR(15) = NULL,
+    @email NVARCHAR(256) = NULL
+AS
+BEGIN
+
+    -- Validar: si todos los parámetros son NULL, lanzar error
+    IF @id_proveedor IS NULL 
+       AND @nombre_Proveedor IS NULL 
+       AND @telefono IS NULL 
+       AND @email IS NULL
+    BEGIN
+        SELECT id_proveedor AS 'ID',
+        nombre_Proveedor AS 'Proveedor',
+        telefono AS 'Teléfono',
+        email AS 'Email'
+        FROM Proveedores
+    END
+    ELSE
+    BEGIN
+        SELECT id_proveedor AS 'ID',
+        nombre_Proveedor AS 'Proveedor',
+        telefono AS 'Teléfono',
+        email AS 'Email'
+        FROM Proveedores
+        WHERE
+            (@id_proveedor IS NULL OR id_proveedor = @id_proveedor)
+            AND (@nombre_Proveedor IS NULL OR nombre_Proveedor LIKE '%' + @nombre_Proveedor + '%')
+            AND (@telefono IS NULL OR telefono = @telefono)
+            AND (@email IS NULL OR email = @email);
+    END
+END
+
+EXEC spu_mostrar_proveedores
+
+INSERT INTO Proveedores
+VALUES(1, 'EZE', '3413922015', 'ezequiel.ramos@institutozonaoeste.edu.ar')
+SELECT * FROM Proveedores
+
+CREATE PROCEDURE spu_cargar_proveedores
+@id_proveedor INT,
+@nombre_Proveedor NVARCHAR(60),
+@telefono NVARCHAR(15),
+@email NVARCHAR(256) 
+AS
+INSERT INTO Proveedores
+VALUES(@id_proveedor, @nombre_Proveedor, @telefono, @email)
+
+CREATE PROCEDURE spu_eliminar_proveedores
+@id_proveedor INT
+AS
+DELETE FROM Proveedores WHERE id_proveedor = @id_proveedor
+
+CREATE PROCEDURE spu_modificar_proveedores
+@id_proveedor INT,
+@nombre_Proveedor NVARCHAR(60),
+@telefono NVARCHAR(15),
+@email NVARCHAR(256) 
+AS
+UPDATE Proveedores SET id_proveedor = @id_proveedor, nombre_Proveedor = @nombre_Proveedor, telefono = @telefono WHERE id_proveedor = @id_proveedor
+
+CREATE PROCEDURE spu_id_nuevo_proveedor
+    @NextID INT OUTPUT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DECLARE @next INT;
+
+    SELECT @next = ISNULL(MAX(id_proveedor), 0) + 1
+    FROM Proveedores;
+
+    -- Asignar al parámetro OUTPUT correctamente
+    SET @NextID = @next;
+END;
+
+
 --PRODUCTOS
 
 CREATE PROCEDURE spu_mostrar_productos
     @codigo INT = NULL,
     @descripcion NVARCHAR(60) = NULL,
+    @id_prov INT = NULL,
     @stock INT = NULL,
     @precio DECIMAL(18,2) = NULL
 AS
@@ -138,32 +240,49 @@ BEGIN
     IF @codigo IS NULL 
        AND @descripcion IS NULL 
        AND @stock IS NULL 
+       AND @id_prov IS NULL
        AND @precio IS NULL
     BEGIN
         SELECT codigo AS 'Código',
         descripcion AS 'Descripción',
+        Proveedores.nombre_Proveedor AS 'Proveedor',
         stock AS 'Stock',
         precio AS 'Precio'
         FROM Productos
+        INNER JOIN Proveedores ON Proveedores.id_proveedor = Productos.proveedor
     END
     ELSE
     BEGIN
         SELECT codigo AS 'Código',
         descripcion AS 'Descripción',
         stock AS 'Stock',
+        Proveedores.nombre_Proveedor AS 'Proveedor',
         precio AS 'Precio'
         FROM Productos
+        INNER JOIN Proveedores ON Proveedores.id_proveedor = Productos.proveedor
         WHERE
             (@codigo IS NULL OR Codigo = @codigo)
             AND (@descripcion IS NULL OR Descripcion LIKE '%' + @descripcion + '%')
+            AND (@id_prov IS NULL OR proveedor = @id_prov)
             AND (@stock IS NULL OR Stock = @stock)
             AND (@precio IS NULL OR Precio = @precio);
     END
 END
 
+EXEC spu_mostrar_productos
+
+SELECT * FROM Productos
+
 CREATE PROCEDURE spu_mostrar_prodStock
 AS
-SELECT * FROM PRODUCTOS WHERE Stock >= 1
+SELECT codigo AS 'Código',
+descripcion AS 'Descripción',
+Proveedores.nombre_Proveedor AS 'Proveedor',
+stock AS 'Stock',
+precio AS 'Precio'
+FROM PRODUCTOS 
+INNER JOIN Proveedores ON Proveedores.id_proveedor = Productos.proveedor
+WHERE Stock >= 1
 
 EXEC spu_mostrar_productos
 
@@ -192,11 +311,12 @@ END;
 CREATE PROCEDURE spu_cargar_productos
 @codigo INT,
 @descripcion NVARCHAR(60),
+@id_prov INT,
 @stock INT,
 @precio DECIMAL(18,2)
 AS
 INSERT INTO Productos
-VALUES(@codigo, @descripcion, @stock, @precio)
+VALUES(@codigo, @descripcion, @id_prov, @stock, @precio)
 
 CREATE PROCEDURE spu_eliminar_productos
 @codigo INT
@@ -206,10 +326,11 @@ DELETE FROM Productos WHERE codigo = @codigo
 CREATE PROCEDURE spu_modificar_productos
 @codigo INT,
 @descripcion NVARCHAR(60),
+@id_prov INT,
 @stock INT,
 @precio DECIMAL(18,2)
 AS
-UPDATE Productos SET descripcion = @descripcion, stock = @stock, precio = @precio WHERE codigo = @codigo
+UPDATE Productos SET descripcion = @descripcion, proveedor = @id_prov, stock = @stock, precio = @precio WHERE codigo = @codigo
 
 CREATE PROCEDURE spu_id_nuevo_producto
     @NextID INT OUTPUT
@@ -228,6 +349,12 @@ END;
 
 
 --VENTAS
+
+CREATE PROCEDURE spu_mostrar_ventas
+AS
+SELECT * FROM Ventas
+
+EXEC spu_mostrar_ventas
 
 CREATE PROCEDURE spu_cargar_venta
 @id_venta INT,
@@ -307,7 +434,68 @@ INNER JOIN Productos P ON M.codigo = P.codigo
 INNER JOIN Usuarios U ON V.id_usuario = U.id_usuario
 WHERE M.id_venta = @id_vta
 
+
+
 EXEC spu_mostrar_detalle_venta 1
+
+CREATE PROCEDURE spu_mostrar_detalle_venta_V2
+    @id_vta INT = NULL,
+    @fecha DATETIME = NULL,
+    @id_cliente INT = NULL,
+    @importe DECIMAL(18,2) = NULL,
+    @id_usuario INT = NULL
+AS
+BEGIN
+    IF @id_vta IS NULL 
+       AND @fecha IS NULL 
+       AND @id_cliente IS NULL 
+       AND @importe IS NULL 
+       AND @id_usuario IS NULL
+    BEGIN
+        SELECT
+            C.razon_social AS Cliente,
+            U.usuario AS Usuario,
+            M.codigo AS 'Código del producto',
+            P.descripcion AS 'Producto',
+            M.precio AS 'Precio',
+            M.cantidad AS Cantidad,
+            M.precio_r AS Subtotal
+        FROM Detalle_Venta M
+        INNER JOIN Ventas V ON V.id_venta = M.id_venta
+        INNER JOIN Clientes C ON V.id_cliente = C.id_cliente
+        INNER JOIN Productos P ON M.codigo = P.codigo
+        INNER JOIN Usuarios U ON V.id_usuario = U.id_usuario
+    END
+    ELSE
+    BEGIN
+        SELECT
+            C.razon_social AS Cliente,
+            U.usuario AS Usuario,
+            M.codigo AS 'Código del producto',
+            P.descripcion AS 'Producto',
+            M.precio AS 'Precio',
+            M.cantidad AS Cantidad,
+            M.precio_r AS Subtotal
+        FROM Detalle_Venta M
+        INNER JOIN Ventas V ON V.id_venta = M.id_venta
+        INNER JOIN Clientes C ON V.id_cliente = C.id_cliente
+        INNER JOIN Productos P ON M.codigo = P.codigo
+        INNER JOIN Usuarios U ON V.id_usuario = U.id_usuario
+        WHERE
+
+            (@id_vta IS NULL OR V.id_venta = @id_vta)
+            
+            AND (@fecha IS NULL OR V.fecha = @fecha)
+
+            AND (@id_cliente IS NULL OR V.id_cliente = @id_cliente)
+            
+            AND (@importe IS NULL OR V.importe = @importe) 
+
+            AND (@id_usuario IS NULL OR V.id_usuario = @id_usuario);
+    END
+END
+
+EXEC spu_mostrar_detalle_venta_V2 1
 
 CREATE PROCEDURE spu_id_nuevo_detalleVta
     @NextID INT OUTPUT
@@ -333,10 +521,11 @@ DELETE FROM Detalle_Venta WHERE id_venta = @id_Vta
 CREATE PROCEDURE spu_backup
 AS
 DECLARE @MyFileName VARCHAR(1000)
-SELECT @MyFileName = (SELECT 'C:\BACKUP DB\PARCIAL FINAL\'+ CONVERT (VARCHAR(500),GETDATE(),112)+'.bak') 
+SELECT @MyFileName = (SELECT 'C:\Users\ezequ\Documents\GitHub\FINAL-PROGRAMACION-I-2025\RAMOS EZEQUIEL\DB\BACKUP\'+ CONVERT (VARCHAR(500),GETDATE(),112)+'.bak') 
 BACKUP DATABASE [Comercio]
 TO DISK = @MyFileName
 
+EXEC spu_backup
 
 --TRIGGERS
 
@@ -464,10 +653,12 @@ VALUES(3, 1, 1, 5000, 1, 5000)
 
 
 SELECT * FROM Usuarios
-SELECT * FROM Ventas
 SELECT * FROM Productos
 SELECT * FROM Clientes
 SELECT * FROM Detalle_Venta
+SELECT * FROM Ventas
+
+EXEC spu_mostrar_detalle_venta 10
 
 SELECT * FROM Ventas
 
@@ -481,3 +672,10 @@ EXEC spu_mostrar_detalle_venta 9
 
 UPDATE Productos SET stock = 20 WHERE precio = 4000
 
+SELECT * FROM Ventas
+
+DELETE Ventas WHERE id_venta = 17
+
+SELECT * FROM Detalle_Venta
+
+DELETE Detalle_Venta WHERE id_venta = 17

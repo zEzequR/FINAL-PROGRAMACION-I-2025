@@ -54,6 +54,12 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.winBg = new Bunifu.UI.WinForms.BunifuGradientPanel();
+            this.verXProvCheckBox = new Bunifu.UI.WinForms.BunifuCheckBox();
+            this.verXProvTxt = new Bunifu.UI.WinForms.BunifuLabel();
+            this.provSelect = new System.Windows.Forms.ComboBox();
+            this.provImg = new Bunifu.UI.WinForms.BunifuPictureBox();
+            this.provTxt = new Bunifu.UI.WinForms.BunifuLabel();
+            this.provSep = new Bunifu.UI.WinForms.BunifuSeparator();
             this.verXPrecioCheckbox = new Bunifu.UI.WinForms.BunifuCheckBox();
             this.verXStockCheckbox = new Bunifu.UI.WinForms.BunifuCheckBox();
             this.verXDescCheckbox = new Bunifu.UI.WinForms.BunifuCheckBox();
@@ -95,7 +101,9 @@
             this.confirmBtn = new Bunifu.UI.WinForms.BunifuButton.BunifuButton2();
             this.codProdInp = new Bunifu.UI.WinForms.BunifuTextBox();
             this.productsTable = new Bunifu.UI.WinForms.BunifuDataGridView();
+            this.btnImprimir = new Bunifu.UI.WinForms.BunifuPictureBox();
             this.winBg.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.provImg)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.precioProdImg)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.stockProdImg)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.descProdImg)).BeginInit();
@@ -105,6 +113,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.modImg)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.addImg)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productsTable)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnImprimir)).BeginInit();
             this.SuspendLayout();
             // 
             // winBg
@@ -113,6 +122,13 @@
             this.winBg.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("winBg.BackgroundImage")));
             this.winBg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.winBg.BorderRadius = 10;
+            this.winBg.Controls.Add(this.btnImprimir);
+            this.winBg.Controls.Add(this.verXProvCheckBox);
+            this.winBg.Controls.Add(this.verXProvTxt);
+            this.winBg.Controls.Add(this.provSelect);
+            this.winBg.Controls.Add(this.provImg);
+            this.winBg.Controls.Add(this.provTxt);
+            this.winBg.Controls.Add(this.provSep);
             this.winBg.Controls.Add(this.verXPrecioCheckbox);
             this.winBg.Controls.Add(this.verXStockCheckbox);
             this.winBg.Controls.Add(this.verXDescCheckbox);
@@ -159,11 +175,141 @@
             this.winBg.GradientTopLeft = System.Drawing.SystemColors.Desktop;
             this.winBg.GradientTopRight = System.Drawing.SystemColors.Desktop;
             this.winBg.Location = new System.Drawing.Point(0, 0);
-            this.winBg.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.winBg.Name = "winBg";
             this.winBg.Quality = 10;
-            this.winBg.Size = new System.Drawing.Size(1504, 872);
+            this.winBg.Size = new System.Drawing.Size(1003, 567);
             this.winBg.TabIndex = 3;
+            // 
+            // verXProvCheckBox
+            // 
+            this.verXProvCheckBox.AllowBindingControlAnimation = true;
+            this.verXProvCheckBox.AllowBindingControlColorChanges = false;
+            this.verXProvCheckBox.AllowBindingControlLocation = true;
+            this.verXProvCheckBox.AllowCheckBoxAnimation = false;
+            this.verXProvCheckBox.AllowCheckmarkAnimation = true;
+            this.verXProvCheckBox.AllowOnHoverStates = true;
+            this.verXProvCheckBox.AutoCheck = true;
+            this.verXProvCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.verXProvCheckBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("verXProvCheckBox.BackgroundImage")));
+            this.verXProvCheckBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.verXProvCheckBox.BindingControlPosition = Bunifu.UI.WinForms.BunifuCheckBox.BindingControlPositions.Right;
+            this.verXProvCheckBox.BorderRadius = 12;
+            this.verXProvCheckBox.Checked = false;
+            this.verXProvCheckBox.CheckState = Bunifu.UI.WinForms.BunifuCheckBox.CheckStates.Unchecked;
+            this.verXProvCheckBox.Cursor = System.Windows.Forms.Cursors.Default;
+            this.verXProvCheckBox.CustomCheckmarkImage = null;
+            this.verXProvCheckBox.Enabled = false;
+            this.verXProvCheckBox.Location = new System.Drawing.Point(822, 175);
+            this.verXProvCheckBox.MinimumSize = new System.Drawing.Size(17, 17);
+            this.verXProvCheckBox.Name = "verXProvCheckBox";
+            this.verXProvCheckBox.OnCheck.BorderColor = System.Drawing.Color.DodgerBlue;
+            this.verXProvCheckBox.OnCheck.BorderRadius = 12;
+            this.verXProvCheckBox.OnCheck.BorderThickness = 2;
+            this.verXProvCheckBox.OnCheck.CheckBoxColor = System.Drawing.Color.DodgerBlue;
+            this.verXProvCheckBox.OnCheck.CheckmarkColor = System.Drawing.Color.White;
+            this.verXProvCheckBox.OnCheck.CheckmarkThickness = 2;
+            this.verXProvCheckBox.OnDisable.BorderColor = System.Drawing.Color.LightGray;
+            this.verXProvCheckBox.OnDisable.BorderRadius = 12;
+            this.verXProvCheckBox.OnDisable.BorderThickness = 2;
+            this.verXProvCheckBox.OnDisable.CheckBoxColor = System.Drawing.Color.Transparent;
+            this.verXProvCheckBox.OnDisable.CheckmarkColor = System.Drawing.Color.LightGray;
+            this.verXProvCheckBox.OnDisable.CheckmarkThickness = 2;
+            this.verXProvCheckBox.OnHoverChecked.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(181)))), ((int)(((byte)(255)))));
+            this.verXProvCheckBox.OnHoverChecked.BorderRadius = 12;
+            this.verXProvCheckBox.OnHoverChecked.BorderThickness = 2;
+            this.verXProvCheckBox.OnHoverChecked.CheckBoxColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(181)))), ((int)(((byte)(255)))));
+            this.verXProvCheckBox.OnHoverChecked.CheckmarkColor = System.Drawing.Color.White;
+            this.verXProvCheckBox.OnHoverChecked.CheckmarkThickness = 2;
+            this.verXProvCheckBox.OnHoverUnchecked.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(181)))), ((int)(((byte)(255)))));
+            this.verXProvCheckBox.OnHoverUnchecked.BorderRadius = 12;
+            this.verXProvCheckBox.OnHoverUnchecked.BorderThickness = 1;
+            this.verXProvCheckBox.OnHoverUnchecked.CheckBoxColor = System.Drawing.Color.Transparent;
+            this.verXProvCheckBox.OnUncheck.BorderColor = System.Drawing.Color.DarkGray;
+            this.verXProvCheckBox.OnUncheck.BorderRadius = 12;
+            this.verXProvCheckBox.OnUncheck.BorderThickness = 1;
+            this.verXProvCheckBox.OnUncheck.CheckBoxColor = System.Drawing.Color.Transparent;
+            this.verXProvCheckBox.Size = new System.Drawing.Size(25, 25);
+            this.verXProvCheckBox.Style = Bunifu.UI.WinForms.BunifuCheckBox.CheckBoxStyles.Bunifu;
+            this.verXProvCheckBox.TabIndex = 68;
+            this.verXProvCheckBox.ThreeState = false;
+            this.verXProvCheckBox.ToolTipText = null;
+            this.verXProvCheckBox.CheckedChanged += new System.EventHandler<Bunifu.UI.WinForms.BunifuCheckBox.CheckedChangedEventArgs>(this.verXProvCheckBox_CheckedChanged);
+            // 
+            // verXProvTxt
+            // 
+            this.verXProvTxt.AllowParentOverrides = false;
+            this.verXProvTxt.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.verXProvTxt.AutoEllipsis = false;
+            this.verXProvTxt.Cursor = System.Windows.Forms.Cursors.Default;
+            this.verXProvTxt.CursorType = System.Windows.Forms.Cursors.Default;
+            this.verXProvTxt.Font = new System.Drawing.Font("Century Gothic", 14F);
+            this.verXProvTxt.ForeColor = System.Drawing.Color.White;
+            this.verXProvTxt.Location = new System.Drawing.Point(716, 176);
+            this.verXProvTxt.Name = "verXProvTxt";
+            this.verXProvTxt.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.verXProvTxt.Size = new System.Drawing.Size(97, 22);
+            this.verXProvTxt.TabIndex = 67;
+            this.verXProvTxt.Text = "Proveedor";
+            this.verXProvTxt.TextAlignment = System.Drawing.ContentAlignment.TopLeft;
+            this.verXProvTxt.TextFormat = Bunifu.UI.WinForms.BunifuLabel.TextFormattingOptions.Default;
+            // 
+            // provSelect
+            // 
+            this.provSelect.FormattingEnabled = true;
+            this.provSelect.Location = new System.Drawing.Point(766, 464);
+            this.provSelect.Name = "provSelect";
+            this.provSelect.Size = new System.Drawing.Size(108, 21);
+            this.provSelect.TabIndex = 66;
+            // 
+            // provImg
+            // 
+            this.provImg.AllowFocused = false;
+            this.provImg.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.provImg.AutoSizeHeight = true;
+            this.provImg.BorderRadius = 0;
+            this.provImg.Image = ((System.Drawing.Image)(resources.GetObject("provImg.Image")));
+            this.provImg.IsCircle = true;
+            this.provImg.Location = new System.Drawing.Point(676, 419);
+            this.provImg.Name = "provImg";
+            this.provImg.Size = new System.Drawing.Size(84, 84);
+            this.provImg.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.provImg.TabIndex = 65;
+            this.provImg.TabStop = false;
+            this.provImg.Type = Bunifu.UI.WinForms.BunifuPictureBox.Types.Square;
+            // 
+            // provTxt
+            // 
+            this.provTxt.AllowParentOverrides = false;
+            this.provTxt.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.provTxt.AutoEllipsis = false;
+            this.provTxt.Cursor = System.Windows.Forms.Cursors.Default;
+            this.provTxt.CursorType = System.Windows.Forms.Cursors.Default;
+            this.provTxt.Font = new System.Drawing.Font("Century Gothic", 12F);
+            this.provTxt.ForeColor = System.Drawing.Color.White;
+            this.provTxt.Location = new System.Drawing.Point(781, 427);
+            this.provTxt.Name = "provTxt";
+            this.provTxt.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.provTxt.Size = new System.Drawing.Size(80, 21);
+            this.provTxt.TabIndex = 64;
+            this.provTxt.Text = "Proveedor";
+            this.provTxt.TextAlignment = System.Drawing.ContentAlignment.TopLeft;
+            this.provTxt.TextFormat = Bunifu.UI.WinForms.BunifuLabel.TextFormattingOptions.Default;
+            // 
+            // provSep
+            // 
+            this.provSep.BackColor = System.Drawing.Color.Transparent;
+            this.provSep.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("provSep.BackgroundImage")));
+            this.provSep.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.provSep.DashCap = Bunifu.UI.WinForms.BunifuSeparator.CapStyles.Flat;
+            this.provSep.LineColor = System.Drawing.Color.White;
+            this.provSep.LineStyle = Bunifu.UI.WinForms.BunifuSeparator.LineStyles.DoubleEdgeFaded;
+            this.provSep.LineThickness = 1;
+            this.provSep.Location = new System.Drawing.Point(762, 447);
+            this.provSep.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.provSep.Name = "provSep";
+            this.provSep.Orientation = Bunifu.UI.WinForms.BunifuSeparator.LineOrientation.Horizontal;
+            this.provSep.Size = new System.Drawing.Size(119, 10);
+            this.provSep.TabIndex = 63;
             // 
             // verXPrecioCheckbox
             // 
@@ -184,9 +330,8 @@
             this.verXPrecioCheckbox.Cursor = System.Windows.Forms.Cursors.Default;
             this.verXPrecioCheckbox.CustomCheckmarkImage = null;
             this.verXPrecioCheckbox.Enabled = false;
-            this.verXPrecioCheckbox.Location = new System.Drawing.Point(1311, 315);
-            this.verXPrecioCheckbox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.verXPrecioCheckbox.MinimumSize = new System.Drawing.Size(26, 26);
+            this.verXPrecioCheckbox.Location = new System.Drawing.Point(932, 175);
+            this.verXPrecioCheckbox.MinimumSize = new System.Drawing.Size(17, 17);
             this.verXPrecioCheckbox.Name = "verXPrecioCheckbox";
             this.verXPrecioCheckbox.OnCheck.BorderColor = System.Drawing.Color.DodgerBlue;
             this.verXPrecioCheckbox.OnCheck.BorderRadius = 12;
@@ -214,7 +359,7 @@
             this.verXPrecioCheckbox.OnUncheck.BorderRadius = 12;
             this.verXPrecioCheckbox.OnUncheck.BorderThickness = 1;
             this.verXPrecioCheckbox.OnUncheck.CheckBoxColor = System.Drawing.Color.Transparent;
-            this.verXPrecioCheckbox.Size = new System.Drawing.Size(34, 34);
+            this.verXPrecioCheckbox.Size = new System.Drawing.Size(23, 23);
             this.verXPrecioCheckbox.Style = Bunifu.UI.WinForms.BunifuCheckBox.CheckBoxStyles.Bunifu;
             this.verXPrecioCheckbox.TabIndex = 61;
             this.verXPrecioCheckbox.ThreeState = false;
@@ -240,9 +385,8 @@
             this.verXStockCheckbox.Cursor = System.Windows.Forms.Cursors.Default;
             this.verXStockCheckbox.CustomCheckmarkImage = null;
             this.verXStockCheckbox.Enabled = false;
-            this.verXStockCheckbox.Location = new System.Drawing.Point(1143, 315);
-            this.verXStockCheckbox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.verXStockCheckbox.MinimumSize = new System.Drawing.Size(26, 26);
+            this.verXStockCheckbox.Location = new System.Drawing.Point(670, 175);
+            this.verXStockCheckbox.MinimumSize = new System.Drawing.Size(17, 17);
             this.verXStockCheckbox.Name = "verXStockCheckbox";
             this.verXStockCheckbox.OnCheck.BorderColor = System.Drawing.Color.DodgerBlue;
             this.verXStockCheckbox.OnCheck.BorderRadius = 12;
@@ -270,7 +414,7 @@
             this.verXStockCheckbox.OnUncheck.BorderRadius = 12;
             this.verXStockCheckbox.OnUncheck.BorderThickness = 1;
             this.verXStockCheckbox.OnUncheck.CheckBoxColor = System.Drawing.Color.Transparent;
-            this.verXStockCheckbox.Size = new System.Drawing.Size(34, 34);
+            this.verXStockCheckbox.Size = new System.Drawing.Size(23, 23);
             this.verXStockCheckbox.Style = Bunifu.UI.WinForms.BunifuCheckBox.CheckBoxStyles.Bunifu;
             this.verXStockCheckbox.TabIndex = 60;
             this.verXStockCheckbox.ThreeState = false;
@@ -296,9 +440,8 @@
             this.verXDescCheckbox.Cursor = System.Windows.Forms.Cursors.Default;
             this.verXDescCheckbox.CustomCheckmarkImage = null;
             this.verXDescCheckbox.Enabled = false;
-            this.verXDescCheckbox.Location = new System.Drawing.Point(1390, 248);
-            this.verXDescCheckbox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.verXDescCheckbox.MinimumSize = new System.Drawing.Size(26, 26);
+            this.verXDescCheckbox.Location = new System.Drawing.Point(927, 129);
+            this.verXDescCheckbox.MinimumSize = new System.Drawing.Size(17, 17);
             this.verXDescCheckbox.Name = "verXDescCheckbox";
             this.verXDescCheckbox.OnCheck.BorderColor = System.Drawing.Color.DodgerBlue;
             this.verXDescCheckbox.OnCheck.BorderRadius = 12;
@@ -326,7 +469,7 @@
             this.verXDescCheckbox.OnUncheck.BorderRadius = 12;
             this.verXDescCheckbox.OnUncheck.BorderThickness = 1;
             this.verXDescCheckbox.OnUncheck.CheckBoxColor = System.Drawing.Color.Transparent;
-            this.verXDescCheckbox.Size = new System.Drawing.Size(34, 34);
+            this.verXDescCheckbox.Size = new System.Drawing.Size(23, 23);
             this.verXDescCheckbox.Style = Bunifu.UI.WinForms.BunifuCheckBox.CheckBoxStyles.Bunifu;
             this.verXDescCheckbox.TabIndex = 59;
             this.verXDescCheckbox.ThreeState = false;
@@ -352,9 +495,8 @@
             this.verTodosCheckbox.Cursor = System.Windows.Forms.Cursors.Default;
             this.verTodosCheckbox.CustomCheckmarkImage = null;
             this.verTodosCheckbox.Enabled = false;
-            this.verTodosCheckbox.Location = new System.Drawing.Point(1170, 248);
-            this.verTodosCheckbox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.verTodosCheckbox.MinimumSize = new System.Drawing.Size(26, 26);
+            this.verTodosCheckbox.Location = new System.Drawing.Point(780, 129);
+            this.verTodosCheckbox.MinimumSize = new System.Drawing.Size(17, 17);
             this.verTodosCheckbox.Name = "verTodosCheckbox";
             this.verTodosCheckbox.OnCheck.BorderColor = System.Drawing.Color.DodgerBlue;
             this.verTodosCheckbox.OnCheck.BorderRadius = 12;
@@ -382,7 +524,7 @@
             this.verTodosCheckbox.OnUncheck.BorderRadius = 12;
             this.verTodosCheckbox.OnUncheck.BorderThickness = 1;
             this.verTodosCheckbox.OnUncheck.CheckBoxColor = System.Drawing.Color.Transparent;
-            this.verTodosCheckbox.Size = new System.Drawing.Size(34, 34);
+            this.verTodosCheckbox.Size = new System.Drawing.Size(23, 23);
             this.verTodosCheckbox.Style = Bunifu.UI.WinForms.BunifuCheckBox.CheckBoxStyles.Bunifu;
             this.verTodosCheckbox.TabIndex = 58;
             this.verTodosCheckbox.ThreeState = false;
@@ -408,9 +550,8 @@
             this.verXIDCheckbox.Cursor = System.Windows.Forms.Cursors.Default;
             this.verXIDCheckbox.CustomCheckmarkImage = null;
             this.verXIDCheckbox.Enabled = false;
-            this.verXIDCheckbox.Location = new System.Drawing.Point(1005, 246);
-            this.verXIDCheckbox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.verXIDCheckbox.MinimumSize = new System.Drawing.Size(26, 26);
+            this.verXIDCheckbox.Location = new System.Drawing.Point(670, 128);
+            this.verXIDCheckbox.MinimumSize = new System.Drawing.Size(17, 17);
             this.verXIDCheckbox.Name = "verXIDCheckbox";
             this.verXIDCheckbox.OnCheck.BorderColor = System.Drawing.Color.DodgerBlue;
             this.verXIDCheckbox.OnCheck.BorderRadius = 12;
@@ -438,7 +579,7 @@
             this.verXIDCheckbox.OnUncheck.BorderRadius = 12;
             this.verXIDCheckbox.OnUncheck.BorderThickness = 1;
             this.verXIDCheckbox.OnUncheck.CheckBoxColor = System.Drawing.Color.Transparent;
-            this.verXIDCheckbox.Size = new System.Drawing.Size(34, 34);
+            this.verXIDCheckbox.Size = new System.Drawing.Size(23, 23);
             this.verXIDCheckbox.Style = Bunifu.UI.WinForms.BunifuCheckBox.CheckBoxStyles.Bunifu;
             this.verXIDCheckbox.TabIndex = 57;
             this.verXIDCheckbox.ThreeState = false;
@@ -454,11 +595,10 @@
             this.verXPrecioTxt.CursorType = System.Windows.Forms.Cursors.Default;
             this.verXPrecioTxt.Font = new System.Drawing.Font("Century Gothic", 14F);
             this.verXPrecioTxt.ForeColor = System.Drawing.Color.White;
-            this.verXPrecioTxt.Location = new System.Drawing.Point(1204, 314);
-            this.verXPrecioTxt.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.verXPrecioTxt.Location = new System.Drawing.Point(861, 175);
             this.verXPrecioTxt.Name = "verXPrecioTxt";
             this.verXPrecioTxt.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.verXPrecioTxt.Size = new System.Drawing.Size(86, 34);
+            this.verXPrecioTxt.Size = new System.Drawing.Size(56, 22);
             this.verXPrecioTxt.TabIndex = 56;
             this.verXPrecioTxt.Text = "Precio";
             this.verXPrecioTxt.TextAlignment = System.Drawing.ContentAlignment.TopLeft;
@@ -473,11 +613,10 @@
             this.verXStockTxt.CursorType = System.Windows.Forms.Cursors.Default;
             this.verXStockTxt.Font = new System.Drawing.Font("Century Gothic", 14F);
             this.verXStockTxt.ForeColor = System.Drawing.Color.White;
-            this.verXStockTxt.Location = new System.Drawing.Point(1047, 315);
-            this.verXStockTxt.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.verXStockTxt.Location = new System.Drawing.Point(606, 175);
             this.verXStockTxt.Name = "verXStockTxt";
             this.verXStockTxt.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.verXStockTxt.Size = new System.Drawing.Size(74, 34);
+            this.verXStockTxt.Size = new System.Drawing.Size(50, 22);
             this.verXStockTxt.TabIndex = 54;
             this.verXStockTxt.Text = "Stock";
             this.verXStockTxt.TextAlignment = System.Drawing.ContentAlignment.TopLeft;
@@ -491,10 +630,9 @@
             this.precioProdImg.BorderRadius = 0;
             this.precioProdImg.Image = ((System.Drawing.Image)(resources.GetObject("precioProdImg.Image")));
             this.precioProdImg.IsCircle = true;
-            this.precioProdImg.Location = new System.Drawing.Point(1194, 571);
-            this.precioProdImg.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.precioProdImg.Location = new System.Drawing.Point(796, 339);
             this.precioProdImg.Name = "precioProdImg";
-            this.precioProdImg.Size = new System.Drawing.Size(123, 123);
+            this.precioProdImg.Size = new System.Drawing.Size(82, 82);
             this.precioProdImg.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.precioProdImg.TabIndex = 53;
             this.precioProdImg.TabStop = false;
@@ -509,11 +647,10 @@
             this.precioProdTxt.CursorType = System.Windows.Forms.Cursors.Default;
             this.precioProdTxt.Font = new System.Drawing.Font("Century Gothic", 12F);
             this.precioProdTxt.ForeColor = System.Drawing.Color.White;
-            this.precioProdTxt.Location = new System.Drawing.Point(1370, 574);
-            this.precioProdTxt.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.precioProdTxt.Location = new System.Drawing.Point(913, 341);
             this.precioProdTxt.Name = "precioProdTxt";
             this.precioProdTxt.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.precioProdTxt.Size = new System.Drawing.Size(75, 30);
+            this.precioProdTxt.Size = new System.Drawing.Size(47, 21);
             this.precioProdTxt.TabIndex = 52;
             this.precioProdTxt.Text = "Precio";
             this.precioProdTxt.TextAlignment = System.Drawing.ContentAlignment.TopLeft;
@@ -528,11 +665,11 @@
             this.precioProdSep.LineColor = System.Drawing.Color.White;
             this.precioProdSep.LineStyle = Bunifu.UI.WinForms.BunifuSeparator.LineStyles.DoubleEdgeFaded;
             this.precioProdSep.LineThickness = 1;
-            this.precioProdSep.Location = new System.Drawing.Point(1314, 609);
-            this.precioProdSep.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
+            this.precioProdSep.Location = new System.Drawing.Point(876, 364);
+            this.precioProdSep.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.precioProdSep.Name = "precioProdSep";
             this.precioProdSep.Orientation = Bunifu.UI.WinForms.BunifuSeparator.LineOrientation.Horizontal;
-            this.precioProdSep.Size = new System.Drawing.Size(176, 15);
+            this.precioProdSep.Size = new System.Drawing.Size(117, 10);
             this.precioProdSep.TabIndex = 51;
             // 
             // precioProdInp
@@ -564,10 +701,9 @@
             this.precioProdInp.IconRight = null;
             this.precioProdInp.IconRightCursor = System.Windows.Forms.Cursors.IBeam;
             this.precioProdInp.Lines = new string[0];
-            this.precioProdInp.Location = new System.Drawing.Point(1316, 634);
-            this.precioProdInp.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.precioProdInp.Location = new System.Drawing.Point(877, 380);
             this.precioProdInp.MaxLength = 32767;
-            this.precioProdInp.MinimumSize = new System.Drawing.Size(2, 2);
+            this.precioProdInp.MinimumSize = new System.Drawing.Size(1, 1);
             this.precioProdInp.Modified = false;
             this.precioProdInp.Multiline = false;
             this.precioProdInp.Name = "precioProdInp";
@@ -591,7 +727,7 @@
             stateProperties4.ForeColor = System.Drawing.Color.Empty;
             stateProperties4.PlaceholderForeColor = System.Drawing.Color.Empty;
             this.precioProdInp.OnIdleState = stateProperties4;
-            this.precioProdInp.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.precioProdInp.Padding = new System.Windows.Forms.Padding(3);
             this.precioProdInp.PasswordChar = '\0';
             this.precioProdInp.PlaceholderForeColor = System.Drawing.Color.Silver;
             this.precioProdInp.PlaceholderText = "";
@@ -601,7 +737,7 @@
             this.precioProdInp.SelectionLength = 0;
             this.precioProdInp.SelectionStart = 0;
             this.precioProdInp.ShortcutsEnabled = true;
-            this.precioProdInp.Size = new System.Drawing.Size(174, 40);
+            this.precioProdInp.Size = new System.Drawing.Size(116, 26);
             this.precioProdInp.Style = Bunifu.UI.WinForms.BunifuTextBox._Style.Bunifu;
             this.precioProdInp.TabIndex = 50;
             this.precioProdInp.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -620,10 +756,9 @@
             this.stockProdImg.BorderRadius = 0;
             this.stockProdImg.Image = ((System.Drawing.Image)(resources.GetObject("stockProdImg.Image")));
             this.stockProdImg.IsCircle = true;
-            this.stockProdImg.Location = new System.Drawing.Point(886, 563);
-            this.stockProdImg.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.stockProdImg.Location = new System.Drawing.Point(591, 334);
             this.stockProdImg.Name = "stockProdImg";
-            this.stockProdImg.Size = new System.Drawing.Size(126, 126);
+            this.stockProdImg.Size = new System.Drawing.Size(84, 84);
             this.stockProdImg.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.stockProdImg.TabIndex = 49;
             this.stockProdImg.TabStop = false;
@@ -638,11 +773,10 @@
             this.stockProdTxt.CursorType = System.Windows.Forms.Cursors.Default;
             this.stockProdTxt.Font = new System.Drawing.Font("Century Gothic", 12F);
             this.stockProdTxt.ForeColor = System.Drawing.Color.White;
-            this.stockProdTxt.Location = new System.Drawing.Point(1071, 574);
-            this.stockProdTxt.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.stockProdTxt.Location = new System.Drawing.Point(714, 341);
             this.stockProdTxt.Name = "stockProdTxt";
             this.stockProdTxt.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.stockProdTxt.Size = new System.Drawing.Size(64, 30);
+            this.stockProdTxt.Size = new System.Drawing.Size(43, 21);
             this.stockProdTxt.TabIndex = 48;
             this.stockProdTxt.Text = "Stock";
             this.stockProdTxt.TextAlignment = System.Drawing.ContentAlignment.TopLeft;
@@ -657,11 +791,11 @@
             this.stockProdSep.LineColor = System.Drawing.Color.White;
             this.stockProdSep.LineStyle = Bunifu.UI.WinForms.BunifuSeparator.LineStyles.DoubleEdgeFaded;
             this.stockProdSep.LineThickness = 1;
-            this.stockProdSep.Location = new System.Drawing.Point(1014, 609);
-            this.stockProdSep.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
+            this.stockProdSep.Location = new System.Drawing.Point(676, 364);
+            this.stockProdSep.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.stockProdSep.Name = "stockProdSep";
             this.stockProdSep.Orientation = Bunifu.UI.WinForms.BunifuSeparator.LineOrientation.Horizontal;
-            this.stockProdSep.Size = new System.Drawing.Size(178, 15);
+            this.stockProdSep.Size = new System.Drawing.Size(119, 10);
             this.stockProdSep.TabIndex = 47;
             // 
             // stockProdInp
@@ -693,10 +827,9 @@
             this.stockProdInp.IconRight = null;
             this.stockProdInp.IconRightCursor = System.Windows.Forms.Cursors.IBeam;
             this.stockProdInp.Lines = new string[0];
-            this.stockProdInp.Location = new System.Drawing.Point(1017, 634);
-            this.stockProdInp.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.stockProdInp.Location = new System.Drawing.Point(678, 380);
             this.stockProdInp.MaxLength = 32767;
-            this.stockProdInp.MinimumSize = new System.Drawing.Size(2, 2);
+            this.stockProdInp.MinimumSize = new System.Drawing.Size(1, 1);
             this.stockProdInp.Modified = false;
             this.stockProdInp.Multiline = false;
             this.stockProdInp.Name = "stockProdInp";
@@ -720,7 +853,7 @@
             stateProperties8.ForeColor = System.Drawing.Color.Empty;
             stateProperties8.PlaceholderForeColor = System.Drawing.Color.Empty;
             this.stockProdInp.OnIdleState = stateProperties8;
-            this.stockProdInp.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.stockProdInp.Padding = new System.Windows.Forms.Padding(3);
             this.stockProdInp.PasswordChar = '\0';
             this.stockProdInp.PlaceholderForeColor = System.Drawing.Color.Silver;
             this.stockProdInp.PlaceholderText = "";
@@ -730,7 +863,7 @@
             this.stockProdInp.SelectionLength = 0;
             this.stockProdInp.SelectionStart = 0;
             this.stockProdInp.ShortcutsEnabled = true;
-            this.stockProdInp.Size = new System.Drawing.Size(177, 40);
+            this.stockProdInp.Size = new System.Drawing.Size(118, 26);
             this.stockProdInp.Style = Bunifu.UI.WinForms.BunifuTextBox._Style.Bunifu;
             this.stockProdInp.TabIndex = 46;
             this.stockProdInp.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -749,10 +882,9 @@
             this.descProdImg.BorderRadius = 0;
             this.descProdImg.Image = ((System.Drawing.Image)(resources.GetObject("descProdImg.Image")));
             this.descProdImg.IsCircle = true;
-            this.descProdImg.Location = new System.Drawing.Point(1191, 414);
-            this.descProdImg.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.descProdImg.Location = new System.Drawing.Point(794, 237);
             this.descProdImg.Name = "descProdImg";
-            this.descProdImg.Size = new System.Drawing.Size(123, 123);
+            this.descProdImg.Size = new System.Drawing.Size(82, 82);
             this.descProdImg.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.descProdImg.TabIndex = 45;
             this.descProdImg.TabStop = false;
@@ -767,11 +899,10 @@
             this.descProdTxt.CursorType = System.Windows.Forms.Cursors.Default;
             this.descProdTxt.Font = new System.Drawing.Font("Century Gothic", 8F);
             this.descProdTxt.ForeColor = System.Drawing.Color.White;
-            this.descProdTxt.Location = new System.Drawing.Point(1318, 434);
-            this.descProdTxt.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.descProdTxt.Location = new System.Drawing.Point(879, 250);
             this.descProdTxt.Name = "descProdTxt";
             this.descProdTxt.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.descProdTxt.Size = new System.Drawing.Size(168, 21);
+            this.descProdTxt.Size = new System.Drawing.Size(116, 16);
             this.descProdTxt.TabIndex = 44;
             this.descProdTxt.Text = "Descripción producto";
             this.descProdTxt.TextAlignment = System.Drawing.ContentAlignment.TopLeft;
@@ -786,11 +917,11 @@
             this.descProdSep.LineColor = System.Drawing.Color.White;
             this.descProdSep.LineStyle = Bunifu.UI.WinForms.BunifuSeparator.LineStyles.DoubleEdgeFaded;
             this.descProdSep.LineThickness = 1;
-            this.descProdSep.Location = new System.Drawing.Point(1318, 458);
-            this.descProdSep.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
+            this.descProdSep.Location = new System.Drawing.Point(879, 266);
+            this.descProdSep.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.descProdSep.Name = "descProdSep";
             this.descProdSep.Orientation = Bunifu.UI.WinForms.BunifuSeparator.LineOrientation.Horizontal;
-            this.descProdSep.Size = new System.Drawing.Size(171, 15);
+            this.descProdSep.Size = new System.Drawing.Size(114, 10);
             this.descProdSep.TabIndex = 43;
             // 
             // descProdInp
@@ -822,10 +953,9 @@
             this.descProdInp.IconRight = null;
             this.descProdInp.IconRightCursor = System.Windows.Forms.Cursors.IBeam;
             this.descProdInp.Lines = new string[0];
-            this.descProdInp.Location = new System.Drawing.Point(1318, 482);
-            this.descProdInp.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.descProdInp.Location = new System.Drawing.Point(879, 281);
             this.descProdInp.MaxLength = 32767;
-            this.descProdInp.MinimumSize = new System.Drawing.Size(2, 2);
+            this.descProdInp.MinimumSize = new System.Drawing.Size(1, 1);
             this.descProdInp.Modified = false;
             this.descProdInp.Multiline = false;
             this.descProdInp.Name = "descProdInp";
@@ -849,7 +979,7 @@
             stateProperties12.ForeColor = System.Drawing.Color.Empty;
             stateProperties12.PlaceholderForeColor = System.Drawing.Color.Empty;
             this.descProdInp.OnIdleState = stateProperties12;
-            this.descProdInp.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.descProdInp.Padding = new System.Windows.Forms.Padding(3);
             this.descProdInp.PasswordChar = '\0';
             this.descProdInp.PlaceholderForeColor = System.Drawing.Color.Silver;
             this.descProdInp.PlaceholderText = "";
@@ -859,7 +989,7 @@
             this.descProdInp.SelectionLength = 0;
             this.descProdInp.SelectionStart = 0;
             this.descProdInp.ShortcutsEnabled = true;
-            this.descProdInp.Size = new System.Drawing.Size(174, 40);
+            this.descProdInp.Size = new System.Drawing.Size(116, 26);
             this.descProdInp.Style = Bunifu.UI.WinForms.BunifuTextBox._Style.Bunifu;
             this.descProdInp.TabIndex = 42;
             this.descProdInp.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -878,10 +1008,9 @@
             this.codProdImg.BorderRadius = 0;
             this.codProdImg.Image = ((System.Drawing.Image)(resources.GetObject("codProdImg.Image")));
             this.codProdImg.IsCircle = true;
-            this.codProdImg.Location = new System.Drawing.Point(884, 408);
-            this.codProdImg.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.codProdImg.Location = new System.Drawing.Point(589, 233);
             this.codProdImg.Name = "codProdImg";
-            this.codProdImg.Size = new System.Drawing.Size(129, 129);
+            this.codProdImg.Size = new System.Drawing.Size(86, 86);
             this.codProdImg.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.codProdImg.TabIndex = 41;
             this.codProdImg.TabStop = false;
@@ -896,11 +1025,11 @@
             this.bunifuSeparator3.LineColor = System.Drawing.Color.White;
             this.bunifuSeparator3.LineStyle = Bunifu.UI.WinForms.BunifuSeparator.LineStyles.DoubleEdgeFaded;
             this.bunifuSeparator3.LineThickness = 1;
-            this.bunifuSeparator3.Location = new System.Drawing.Point(876, 374);
-            this.bunifuSeparator3.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
+            this.bunifuSeparator3.Location = new System.Drawing.Point(584, 211);
+            this.bunifuSeparator3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.bunifuSeparator3.Name = "bunifuSeparator3";
             this.bunifuSeparator3.Orientation = Bunifu.UI.WinForms.BunifuSeparator.LineOrientation.Horizontal;
-            this.bunifuSeparator3.Size = new System.Drawing.Size(624, 18);
+            this.bunifuSeparator3.Size = new System.Drawing.Size(416, 12);
             this.bunifuSeparator3.TabIndex = 40;
             // 
             // codProdTxt
@@ -912,11 +1041,10 @@
             this.codProdTxt.CursorType = System.Windows.Forms.Cursors.Default;
             this.codProdTxt.Font = new System.Drawing.Font("Century Gothic", 9F);
             this.codProdTxt.ForeColor = System.Drawing.Color.White;
-            this.codProdTxt.Location = new System.Drawing.Point(1030, 434);
-            this.codProdTxt.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.codProdTxt.Location = new System.Drawing.Point(687, 250);
             this.codProdTxt.Name = "codProdTxt";
             this.codProdTxt.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.codProdTxt.Size = new System.Drawing.Size(154, 21);
+            this.codProdTxt.Size = new System.Drawing.Size(103, 17);
             this.codProdTxt.TabIndex = 38;
             this.codProdTxt.Text = "Código producto";
             this.codProdTxt.TextAlignment = System.Drawing.ContentAlignment.TopLeft;
@@ -931,11 +1059,10 @@
             this.verXDescTxt.CursorType = System.Windows.Forms.Cursors.Default;
             this.verXDescTxt.Font = new System.Drawing.Font("Century Gothic", 12F);
             this.verXDescTxt.ForeColor = System.Drawing.Color.White;
-            this.verXDescTxt.Location = new System.Drawing.Point(1233, 248);
-            this.verXDescTxt.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.verXDescTxt.Location = new System.Drawing.Point(822, 129);
             this.verXDescTxt.Name = "verXDescTxt";
             this.verXDescTxt.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.verXDescTxt.Size = new System.Drawing.Size(142, 30);
+            this.verXDescTxt.Size = new System.Drawing.Size(90, 21);
             this.verXDescTxt.TabIndex = 34;
             this.verXDescTxt.Text = "Descripción";
             this.verXDescTxt.TextAlignment = System.Drawing.ContentAlignment.TopLeft;
@@ -950,11 +1077,10 @@
             this.verTodosTxt.CursorType = System.Windows.Forms.Cursors.Default;
             this.verTodosTxt.Font = new System.Drawing.Font("Century Gothic", 14F);
             this.verTodosTxt.ForeColor = System.Drawing.Color.White;
-            this.verTodosTxt.Location = new System.Drawing.Point(1068, 246);
-            this.verTodosTxt.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.verTodosTxt.Location = new System.Drawing.Point(712, 128);
             this.verTodosTxt.Name = "verTodosTxt";
             this.verTodosTxt.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.verTodosTxt.Size = new System.Drawing.Size(77, 34);
+            this.verTodosTxt.Size = new System.Drawing.Size(52, 22);
             this.verTodosTxt.TabIndex = 33;
             this.verTodosTxt.Text = "Todos";
             this.verTodosTxt.TextAlignment = System.Drawing.ContentAlignment.TopLeft;
@@ -969,11 +1095,10 @@
             this.verXCodProdTxt.CursorType = System.Windows.Forms.Cursors.Default;
             this.verXCodProdTxt.Font = new System.Drawing.Font("Century Gothic", 16F);
             this.verXCodProdTxt.ForeColor = System.Drawing.Color.White;
-            this.verXCodProdTxt.Location = new System.Drawing.Point(954, 246);
-            this.verXCodProdTxt.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.verXCodProdTxt.Location = new System.Drawing.Point(636, 128);
             this.verXCodProdTxt.Name = "verXCodProdTxt";
             this.verXCodProdTxt.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.verXCodProdTxt.Size = new System.Drawing.Size(32, 39);
+            this.verXCodProdTxt.Size = new System.Drawing.Size(21, 24);
             this.verXCodProdTxt.TabIndex = 32;
             this.verXCodProdTxt.Text = "ID";
             this.verXCodProdTxt.TextAlignment = System.Drawing.ContentAlignment.TopLeft;
@@ -988,11 +1113,11 @@
             this.verBtnSep.LineColor = System.Drawing.Color.Silver;
             this.verBtnSep.LineStyle = Bunifu.UI.WinForms.BunifuSeparator.LineStyles.DoubleEdgeFaded;
             this.verBtnSep.LineThickness = 1;
-            this.verBtnSep.Location = new System.Drawing.Point(1275, 152);
-            this.verBtnSep.Margin = new System.Windows.Forms.Padding(9, 8, 9, 8);
+            this.verBtnSep.Location = new System.Drawing.Point(850, 67);
+            this.verBtnSep.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.verBtnSep.Name = "verBtnSep";
             this.verBtnSep.Orientation = Bunifu.UI.WinForms.BunifuSeparator.LineOrientation.Vertical;
-            this.verBtnSep.Size = new System.Drawing.Size(18, 60);
+            this.verBtnSep.Size = new System.Drawing.Size(12, 39);
             this.verBtnSep.TabIndex = 31;
             // 
             // verImg
@@ -1001,13 +1126,12 @@
             this.verImg.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.verImg.AutoSizeHeight = true;
             this.verImg.BackColor = System.Drawing.Color.Navy;
-            this.verImg.BorderRadius = 28;
+            this.verImg.BorderRadius = 19;
             this.verImg.Image = ((System.Drawing.Image)(resources.GetObject("verImg.Image")));
             this.verImg.IsCircle = true;
-            this.verImg.Location = new System.Drawing.Point(1214, 152);
-            this.verImg.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.verImg.Location = new System.Drawing.Point(809, 67);
             this.verImg.Name = "verImg";
-            this.verImg.Size = new System.Drawing.Size(57, 57);
+            this.verImg.Size = new System.Drawing.Size(38, 38);
             this.verImg.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.verImg.TabIndex = 30;
             this.verImg.TabStop = false;
@@ -1054,14 +1178,13 @@
             this.verXBtn.IconRightPadding = new System.Windows.Forms.Padding(3, 3, 7, 3);
             this.verXBtn.IconSize = 25;
             this.verXBtn.IdleBorderColor = System.Drawing.Color.Azure;
-            this.verXBtn.IdleBorderRadius = 61;
+            this.verXBtn.IdleBorderRadius = 39;
             this.verXBtn.IdleBorderThickness = 1;
             this.verXBtn.IdleFillColor = System.Drawing.Color.Navy;
             this.verXBtn.IdleIconLeftImage = null;
             this.verXBtn.IdleIconRightImage = null;
             this.verXBtn.IndicateFocus = false;
-            this.verXBtn.Location = new System.Drawing.Point(1192, 151);
-            this.verXBtn.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.verXBtn.Location = new System.Drawing.Point(795, 66);
             this.verXBtn.Name = "verXBtn";
             this.verXBtn.OnDisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(191)))), ((int)(((byte)(191)))));
             this.verXBtn.OnDisabledState.BorderRadius = 60;
@@ -1095,7 +1218,7 @@
             this.verXBtn.OnPressedState.ForeColor = System.Drawing.Color.White;
             this.verXBtn.OnPressedState.IconLeftImage = null;
             this.verXBtn.OnPressedState.IconRightImage = null;
-            this.verXBtn.Size = new System.Drawing.Size(291, 63);
+            this.verXBtn.Size = new System.Drawing.Size(194, 41);
             this.verXBtn.TabIndex = 29;
             this.verXBtn.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.verXBtn.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
@@ -1113,11 +1236,11 @@
             this.codProdSep.LineColor = System.Drawing.Color.White;
             this.codProdSep.LineStyle = Bunifu.UI.WinForms.BunifuSeparator.LineStyles.DoubleEdgeFaded;
             this.codProdSep.LineThickness = 1;
-            this.codProdSep.Location = new System.Drawing.Point(1018, 462);
-            this.codProdSep.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
+            this.codProdSep.Location = new System.Drawing.Point(679, 268);
+            this.codProdSep.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.codProdSep.Name = "codProdSep";
             this.codProdSep.Orientation = Bunifu.UI.WinForms.BunifuSeparator.LineOrientation.Horizontal;
-            this.codProdSep.Size = new System.Drawing.Size(172, 15);
+            this.codProdSep.Size = new System.Drawing.Size(115, 10);
             this.codProdSep.TabIndex = 27;
             // 
             // deleteBtnSep
@@ -1129,11 +1252,11 @@
             this.deleteBtnSep.LineColor = System.Drawing.Color.Silver;
             this.deleteBtnSep.LineStyle = Bunifu.UI.WinForms.BunifuSeparator.LineStyles.DoubleEdgeFaded;
             this.deleteBtnSep.LineThickness = 1;
-            this.deleteBtnSep.Location = new System.Drawing.Point(950, 149);
-            this.deleteBtnSep.Margin = new System.Windows.Forms.Padding(9, 8, 9, 8);
+            this.deleteBtnSep.Location = new System.Drawing.Point(633, 65);
+            this.deleteBtnSep.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.deleteBtnSep.Name = "deleteBtnSep";
             this.deleteBtnSep.Orientation = Bunifu.UI.WinForms.BunifuSeparator.LineOrientation.Vertical;
-            this.deleteBtnSep.Size = new System.Drawing.Size(18, 60);
+            this.deleteBtnSep.Size = new System.Drawing.Size(12, 39);
             this.deleteBtnSep.TabIndex = 26;
             // 
             // delImg
@@ -1142,13 +1265,12 @@
             this.delImg.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.delImg.AutoSizeHeight = true;
             this.delImg.BackColor = System.Drawing.Color.Navy;
-            this.delImg.BorderRadius = 28;
+            this.delImg.BorderRadius = 19;
             this.delImg.Image = ((System.Drawing.Image)(resources.GetObject("delImg.Image")));
             this.delImg.IsCircle = true;
-            this.delImg.Location = new System.Drawing.Point(886, 151);
-            this.delImg.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.delImg.Location = new System.Drawing.Point(591, 66);
             this.delImg.Name = "delImg";
-            this.delImg.Size = new System.Drawing.Size(57, 57);
+            this.delImg.Size = new System.Drawing.Size(38, 38);
             this.delImg.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.delImg.TabIndex = 25;
             this.delImg.TabStop = false;
@@ -1195,14 +1317,13 @@
             this.deleteBtn.IconRightPadding = new System.Windows.Forms.Padding(3, 3, 7, 3);
             this.deleteBtn.IconSize = 25;
             this.deleteBtn.IdleBorderColor = System.Drawing.Color.Azure;
-            this.deleteBtn.IdleBorderRadius = 61;
+            this.deleteBtn.IdleBorderRadius = 39;
             this.deleteBtn.IdleBorderThickness = 1;
             this.deleteBtn.IdleFillColor = System.Drawing.Color.Navy;
             this.deleteBtn.IdleIconLeftImage = null;
             this.deleteBtn.IdleIconRightImage = null;
             this.deleteBtn.IndicateFocus = false;
-            this.deleteBtn.Location = new System.Drawing.Point(867, 148);
-            this.deleteBtn.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.deleteBtn.Location = new System.Drawing.Point(578, 64);
             this.deleteBtn.Name = "deleteBtn";
             this.deleteBtn.OnDisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(191)))), ((int)(((byte)(191)))));
             this.deleteBtn.OnDisabledState.BorderRadius = 60;
@@ -1236,7 +1357,7 @@
             this.deleteBtn.OnPressedState.ForeColor = System.Drawing.Color.White;
             this.deleteBtn.OnPressedState.IconLeftImage = null;
             this.deleteBtn.OnPressedState.IconRightImage = null;
-            this.deleteBtn.Size = new System.Drawing.Size(291, 63);
+            this.deleteBtn.Size = new System.Drawing.Size(194, 41);
             this.deleteBtn.TabIndex = 24;
             this.deleteBtn.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.deleteBtn.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
@@ -1254,11 +1375,11 @@
             this.modBtnSep.LineColor = System.Drawing.Color.Silver;
             this.modBtnSep.LineStyle = Bunifu.UI.WinForms.BunifuSeparator.LineStyles.DoubleEdgeFaded;
             this.modBtnSep.LineThickness = 1;
-            this.modBtnSep.Location = new System.Drawing.Point(1275, 58);
-            this.modBtnSep.Margin = new System.Windows.Forms.Padding(9, 8, 9, 8);
+            this.modBtnSep.Location = new System.Drawing.Point(850, 6);
+            this.modBtnSep.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.modBtnSep.Name = "modBtnSep";
             this.modBtnSep.Orientation = Bunifu.UI.WinForms.BunifuSeparator.LineOrientation.Vertical;
-            this.modBtnSep.Size = new System.Drawing.Size(18, 60);
+            this.modBtnSep.Size = new System.Drawing.Size(12, 39);
             this.modBtnSep.TabIndex = 23;
             // 
             // modImg
@@ -1267,13 +1388,12 @@
             this.modImg.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.modImg.AutoSizeHeight = true;
             this.modImg.BackColor = System.Drawing.Color.Navy;
-            this.modImg.BorderRadius = 28;
+            this.modImg.BorderRadius = 19;
             this.modImg.Image = ((System.Drawing.Image)(resources.GetObject("modImg.Image")));
             this.modImg.IsCircle = true;
-            this.modImg.Location = new System.Drawing.Point(1214, 60);
-            this.modImg.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.modImg.Location = new System.Drawing.Point(809, 7);
             this.modImg.Name = "modImg";
-            this.modImg.Size = new System.Drawing.Size(57, 57);
+            this.modImg.Size = new System.Drawing.Size(38, 38);
             this.modImg.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.modImg.TabIndex = 22;
             this.modImg.TabStop = false;
@@ -1320,14 +1440,13 @@
             this.modBtn.IconRightPadding = new System.Windows.Forms.Padding(3, 3, 7, 3);
             this.modBtn.IconSize = 25;
             this.modBtn.IdleBorderColor = System.Drawing.Color.Azure;
-            this.modBtn.IdleBorderRadius = 61;
+            this.modBtn.IdleBorderRadius = 39;
             this.modBtn.IdleBorderThickness = 1;
             this.modBtn.IdleFillColor = System.Drawing.Color.Navy;
             this.modBtn.IdleIconLeftImage = null;
             this.modBtn.IdleIconRightImage = null;
             this.modBtn.IndicateFocus = false;
-            this.modBtn.Location = new System.Drawing.Point(1192, 57);
-            this.modBtn.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.modBtn.Location = new System.Drawing.Point(795, 5);
             this.modBtn.Name = "modBtn";
             this.modBtn.OnDisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(191)))), ((int)(((byte)(191)))));
             this.modBtn.OnDisabledState.BorderRadius = 60;
@@ -1361,7 +1480,7 @@
             this.modBtn.OnPressedState.ForeColor = System.Drawing.Color.White;
             this.modBtn.OnPressedState.IconLeftImage = null;
             this.modBtn.OnPressedState.IconRightImage = null;
-            this.modBtn.Size = new System.Drawing.Size(291, 63);
+            this.modBtn.Size = new System.Drawing.Size(194, 41);
             this.modBtn.TabIndex = 21;
             this.modBtn.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.modBtn.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
@@ -1379,11 +1498,11 @@
             this.addBtnSep.LineColor = System.Drawing.Color.Silver;
             this.addBtnSep.LineStyle = Bunifu.UI.WinForms.BunifuSeparator.LineStyles.DoubleEdgeFaded;
             this.addBtnSep.LineThickness = 1;
-            this.addBtnSep.Location = new System.Drawing.Point(950, 60);
-            this.addBtnSep.Margin = new System.Windows.Forms.Padding(9, 8, 9, 8);
+            this.addBtnSep.Location = new System.Drawing.Point(633, 7);
+            this.addBtnSep.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.addBtnSep.Name = "addBtnSep";
             this.addBtnSep.Orientation = Bunifu.UI.WinForms.BunifuSeparator.LineOrientation.Vertical;
-            this.addBtnSep.Size = new System.Drawing.Size(18, 60);
+            this.addBtnSep.Size = new System.Drawing.Size(12, 39);
             this.addBtnSep.TabIndex = 20;
             // 
             // addImg
@@ -1392,13 +1511,12 @@
             this.addImg.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.addImg.AutoSizeHeight = true;
             this.addImg.BackColor = System.Drawing.Color.Navy;
-            this.addImg.BorderRadius = 28;
+            this.addImg.BorderRadius = 19;
             this.addImg.Image = ((System.Drawing.Image)(resources.GetObject("addImg.Image")));
             this.addImg.IsCircle = true;
-            this.addImg.Location = new System.Drawing.Point(886, 60);
-            this.addImg.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.addImg.Location = new System.Drawing.Point(591, 7);
             this.addImg.Name = "addImg";
-            this.addImg.Size = new System.Drawing.Size(57, 57);
+            this.addImg.Size = new System.Drawing.Size(38, 38);
             this.addImg.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.addImg.TabIndex = 19;
             this.addImg.TabStop = false;
@@ -1445,14 +1563,13 @@
             this.addBtn.IconRightPadding = new System.Windows.Forms.Padding(3, 3, 7, 3);
             this.addBtn.IconSize = 25;
             this.addBtn.IdleBorderColor = System.Drawing.Color.Azure;
-            this.addBtn.IdleBorderRadius = 61;
+            this.addBtn.IdleBorderRadius = 39;
             this.addBtn.IdleBorderThickness = 1;
             this.addBtn.IdleFillColor = System.Drawing.Color.Navy;
             this.addBtn.IdleIconLeftImage = null;
             this.addBtn.IdleIconRightImage = null;
             this.addBtn.IndicateFocus = false;
-            this.addBtn.Location = new System.Drawing.Point(867, 58);
-            this.addBtn.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.addBtn.Location = new System.Drawing.Point(578, 6);
             this.addBtn.Name = "addBtn";
             this.addBtn.OnDisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(191)))), ((int)(((byte)(191)))));
             this.addBtn.OnDisabledState.BorderRadius = 60;
@@ -1486,7 +1603,7 @@
             this.addBtn.OnPressedState.ForeColor = System.Drawing.Color.White;
             this.addBtn.OnPressedState.IconLeftImage = null;
             this.addBtn.OnPressedState.IconRightImage = null;
-            this.addBtn.Size = new System.Drawing.Size(291, 63);
+            this.addBtn.Size = new System.Drawing.Size(194, 41);
             this.addBtn.TabIndex = 18;
             this.addBtn.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.addBtn.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
@@ -1536,14 +1653,13 @@
             this.confirmBtn.IconRightPadding = new System.Windows.Forms.Padding(3, 3, 7, 3);
             this.confirmBtn.IconSize = 25;
             this.confirmBtn.IdleBorderColor = System.Drawing.Color.Azure;
-            this.confirmBtn.IdleBorderRadius = 61;
+            this.confirmBtn.IdleBorderRadius = 39;
             this.confirmBtn.IdleBorderThickness = 1;
             this.confirmBtn.IdleFillColor = System.Drawing.Color.Navy;
             this.confirmBtn.IdleIconLeftImage = null;
             this.confirmBtn.IdleIconRightImage = null;
             this.confirmBtn.IndicateFocus = false;
-            this.confirmBtn.Location = new System.Drawing.Point(981, 738);
-            this.confirmBtn.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.confirmBtn.Location = new System.Drawing.Point(654, 509);
             this.confirmBtn.Name = "confirmBtn";
             this.confirmBtn.OnDisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(191)))), ((int)(((byte)(191)))));
             this.confirmBtn.OnDisabledState.BorderRadius = 60;
@@ -1577,7 +1693,7 @@
             this.confirmBtn.OnPressedState.ForeColor = System.Drawing.Color.White;
             this.confirmBtn.OnPressedState.IconLeftImage = null;
             this.confirmBtn.OnPressedState.IconRightImage = null;
-            this.confirmBtn.Size = new System.Drawing.Size(408, 63);
+            this.confirmBtn.Size = new System.Drawing.Size(272, 41);
             this.confirmBtn.TabIndex = 17;
             this.confirmBtn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.confirmBtn.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
@@ -1615,10 +1731,9 @@
             this.codProdInp.IconRight = null;
             this.codProdInp.IconRightCursor = System.Windows.Forms.Cursors.IBeam;
             this.codProdInp.Lines = new string[0];
-            this.codProdInp.Location = new System.Drawing.Point(1016, 483);
-            this.codProdInp.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.codProdInp.Location = new System.Drawing.Point(677, 282);
             this.codProdInp.MaxLength = 32767;
-            this.codProdInp.MinimumSize = new System.Drawing.Size(2, 2);
+            this.codProdInp.MinimumSize = new System.Drawing.Size(1, 1);
             this.codProdInp.Modified = false;
             this.codProdInp.Multiline = false;
             this.codProdInp.Name = "codProdInp";
@@ -1642,7 +1757,7 @@
             stateProperties16.ForeColor = System.Drawing.Color.Empty;
             stateProperties16.PlaceholderForeColor = System.Drawing.Color.Empty;
             this.codProdInp.OnIdleState = stateProperties16;
-            this.codProdInp.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.codProdInp.Padding = new System.Windows.Forms.Padding(3);
             this.codProdInp.PasswordChar = '\0';
             this.codProdInp.PlaceholderForeColor = System.Drawing.Color.Silver;
             this.codProdInp.PlaceholderText = "";
@@ -1652,7 +1767,7 @@
             this.codProdInp.SelectionLength = 0;
             this.codProdInp.SelectionStart = 0;
             this.codProdInp.ShortcutsEnabled = true;
-            this.codProdInp.Size = new System.Drawing.Size(176, 38);
+            this.codProdInp.Size = new System.Drawing.Size(117, 25);
             this.codProdInp.Style = Bunifu.UI.WinForms.BunifuTextBox._Style.Bunifu;
             this.codProdInp.TabIndex = 15;
             this.codProdInp.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -1718,7 +1833,6 @@
             this.productsTable.HeaderBgColor = System.Drawing.Color.Empty;
             this.productsTable.HeaderForeColor = System.Drawing.Color.White;
             this.productsTable.Location = new System.Drawing.Point(0, 0);
-            this.productsTable.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.productsTable.MultiSelect = false;
             this.productsTable.Name = "productsTable";
             this.productsTable.ReadOnly = true;
@@ -1726,25 +1840,42 @@
             this.productsTable.RowHeadersWidth = 62;
             this.productsTable.RowTemplate.Height = 40;
             this.productsTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.productsTable.Size = new System.Drawing.Size(854, 872);
+            this.productsTable.Size = new System.Drawing.Size(569, 567);
             this.productsTable.TabIndex = 0;
             this.productsTable.Theme = Bunifu.UI.WinForms.BunifuDataGridView.PresetThemes.Navy;
             this.productsTable.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.clientsTable_CellClick);
             // 
+            // btnImprimir
+            // 
+            this.btnImprimir.AllowFocused = false;
+            this.btnImprimir.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnImprimir.AutoSizeHeight = true;
+            this.btnImprimir.BorderRadius = 0;
+            this.btnImprimir.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnImprimir.Image = ((System.Drawing.Image)(resources.GetObject("btnImprimir.Image")));
+            this.btnImprimir.IsCircle = true;
+            this.btnImprimir.Location = new System.Drawing.Point(949, 513);
+            this.btnImprimir.Name = "btnImprimir";
+            this.btnImprimir.Size = new System.Drawing.Size(47, 47);
+            this.btnImprimir.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnImprimir.TabIndex = 69;
+            this.btnImprimir.TabStop = false;
+            this.btnImprimir.Type = Bunifu.UI.WinForms.BunifuPictureBox.Types.Square;
+            // 
             // frmProductos
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1504, 872);
+            this.ClientSize = new System.Drawing.Size(1003, 567);
             this.Controls.Add(this.winBg);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "frmProductos";
             this.Text = "frmProductos";
             this.Load += new System.EventHandler(this.frmProductos_Load);
             this.winBg.ResumeLayout(false);
             this.winBg.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.provImg)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.precioProdImg)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.stockProdImg)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.descProdImg)).EndInit();
@@ -1754,6 +1885,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.modImg)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.addImg)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.productsTable)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnImprimir)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1802,5 +1934,12 @@
         private Bunifu.UI.WinForms.BunifuCheckBox verXDescCheckbox;
         private Bunifu.UI.WinForms.BunifuCheckBox verTodosCheckbox;
         private Bunifu.UI.WinForms.BunifuCheckBox verXIDCheckbox;
+        private Bunifu.UI.WinForms.BunifuPictureBox provImg;
+        private Bunifu.UI.WinForms.BunifuLabel provTxt;
+        private Bunifu.UI.WinForms.BunifuSeparator provSep;
+        private System.Windows.Forms.ComboBox provSelect;
+        private Bunifu.UI.WinForms.BunifuLabel verXProvTxt;
+        private Bunifu.UI.WinForms.BunifuCheckBox verXProvCheckBox;
+        private Bunifu.UI.WinForms.BunifuPictureBox btnImprimir;
     }
 }

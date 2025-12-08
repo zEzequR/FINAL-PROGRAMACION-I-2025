@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DsClientes" targetNamespace="http://tempuri.org/DsClientes.xsd" xmlns:mstns="http://tempuri.org/DsClientes.xsd" xmlns="http://tempuri.org/DsClientes.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DsClientes" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="DsClientes" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DsClientes">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="DtClientes" msprop:Generator_RowClassName="DtClientesRow" msprop:Generator_RowEvHandlerName="DtClientesRowChangeEventHandler" msprop:Generator_RowDeletedName="DtClientesRowDeleted" msprop:Generator_RowDeletingName="DtClientesRowDeleting" msprop:Generator_RowEvArgName="DtClientesRowChangeEvent" msprop:Generator_TablePropName="DtClientes" msprop:Generator_RowChangedName="DtClientesRowChanged" msprop:Generator_UserTableName="DtClientes" msprop:Generator_RowChangingName="DtClientesRowChanging" msprop:Generator_TableClassName="DtClientesDataTable" msprop:Generator_TableVarName="tableDtClientes">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msprop:Generator_UserColumnName="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnVarNameInTable="columnID" type="xs:string" minOccurs="0" />
+              <xs:element name="RazonSocial" msprop:Generator_UserColumnName="RazonSocial" msprop:Generator_ColumnPropNameInTable="RazonSocialColumn" msprop:Generator_ColumnPropNameInRow="RazonSocial" msprop:Generator_ColumnVarNameInTable="columnRazonSocial" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

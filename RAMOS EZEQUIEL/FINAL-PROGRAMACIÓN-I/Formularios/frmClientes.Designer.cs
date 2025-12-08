@@ -46,6 +46,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.winBg = new Bunifu.UI.WinForms.BunifuGradientPanel();
+            this.btnImprimir = new Bunifu.UI.WinForms.BunifuPictureBox();
             this.verXNombreCheckbox = new Bunifu.UI.WinForms.BunifuCheckBox();
             this.verTodosCheckbox = new Bunifu.UI.WinForms.BunifuCheckBox();
             this.verXIDCheckbox = new Bunifu.UI.WinForms.BunifuCheckBox();
@@ -77,6 +78,7 @@
             this.clientsTable = new Bunifu.UI.WinForms.BunifuDataGridView();
             this.bunifuFormDock1 = new Bunifu.UI.WinForms.BunifuFormDock();
             this.winBg.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnImprimir)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nombreImg)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.idImg)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.verImg)).BeginInit();
@@ -92,6 +94,7 @@
             this.winBg.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("winBg.BackgroundImage")));
             this.winBg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.winBg.BorderRadius = 10;
+            this.winBg.Controls.Add(this.btnImprimir);
             this.winBg.Controls.Add(this.verXNombreCheckbox);
             this.winBg.Controls.Add(this.verTodosCheckbox);
             this.winBg.Controls.Add(this.verXIDCheckbox);
@@ -130,6 +133,24 @@
             this.winBg.Quality = 10;
             this.winBg.Size = new System.Drawing.Size(1003, 567);
             this.winBg.TabIndex = 2;
+            // 
+            // btnImprimir
+            // 
+            this.btnImprimir.AllowFocused = false;
+            this.btnImprimir.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnImprimir.AutoSizeHeight = true;
+            this.btnImprimir.BorderRadius = 0;
+            this.btnImprimir.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnImprimir.Image = ((System.Drawing.Image)(resources.GetObject("btnImprimir.Image")));
+            this.btnImprimir.IsCircle = true;
+            this.btnImprimir.Location = new System.Drawing.Point(949, 513);
+            this.btnImprimir.Name = "btnImprimir";
+            this.btnImprimir.Size = new System.Drawing.Size(47, 47);
+            this.btnImprimir.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnImprimir.TabIndex = 63;
+            this.btnImprimir.TabStop = false;
+            this.btnImprimir.Type = Bunifu.UI.WinForms.BunifuPictureBox.Types.Square;
+            this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click);
             // 
             // verXNombreCheckbox
             // 
@@ -1320,6 +1341,7 @@
             this.Load += new System.EventHandler(this.frmClientes_Load);
             this.winBg.ResumeLayout(false);
             this.winBg.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnImprimir)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nombreImg)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.idImg)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.verImg)).EndInit();
@@ -1364,5 +1386,6 @@
         private Bunifu.UI.WinForms.BunifuCheckBox verXIDCheckbox;
         private Bunifu.UI.WinForms.BunifuCheckBox verXNombreCheckbox;
         private Bunifu.UI.WinForms.BunifuCheckBox verTodosCheckbox;
+        private Bunifu.UI.WinForms.BunifuPictureBox btnImprimir;
     }
 }

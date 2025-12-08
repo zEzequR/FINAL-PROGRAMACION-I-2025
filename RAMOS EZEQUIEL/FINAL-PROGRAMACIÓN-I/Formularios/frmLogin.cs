@@ -20,7 +20,6 @@ namespace FINAL_PROGRAMACIÓN_I
         public static string username;
         public static int id;
         Controladores Controladores = new Controladores();
-        Usuario user = new Usuario();
         public frmLogin()
         {
             InitializeComponent();
@@ -54,7 +53,7 @@ namespace FINAL_PROGRAMACIÓN_I
             {
                 int ID = Controladores.getuserID("spu_get_id_usuario", userInp.Text);
 
-                user = user.setUsuario(ID, userInp.Text, psw);
+                Usuario user = new Usuario(ID, userInp.Text, psw);
 
                 System.Diagnostics.Debug.WriteLine("ID: " + user.id_usuario + "Usuario: " + user.usuario + " Contraseña: " + user.psw);
 

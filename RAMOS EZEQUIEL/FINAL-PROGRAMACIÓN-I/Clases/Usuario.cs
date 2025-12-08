@@ -12,13 +12,11 @@ namespace FINAL_PROGRAMACIÓN_I.Clases
         public string usuario { get; set; }
         public int psw { get; set; }
 
-        public Usuario setUsuario(int id, string nombreUsuario, int contraseña)
+        public Usuario(int id_usuario, string usuario, int psw)
         {
-            Usuario user = new Usuario();
-            user.id_usuario = id;
-            user.usuario = nombreUsuario;
-            user.psw = contraseña;
-            return user;
+            this.id_usuario = id_usuario;
+            this.usuario = usuario;
+            this.psw = psw;
         }
     }
 }

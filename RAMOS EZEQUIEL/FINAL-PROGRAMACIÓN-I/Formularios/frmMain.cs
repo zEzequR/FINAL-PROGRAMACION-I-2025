@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -48,6 +49,18 @@ namespace FINAL_PROGRAMACIÓN_I.Formularios
             WinCtrlBoxTxt.Text = "Final Programación I - Ventas";
         }
 
+        private void proveedoresBtn_Click(object sender, EventArgs e)
+        {
+            controladores.openMDIContainers(new frmProveedores(), this);
+            WinCtrlBoxTxt.Text = "Final Programación I - Proveedores";
+        }
+
+        private void askVtasBtn_Click(object sender, EventArgs e)
+        {
+            controladores.openMDIContainers(new frmConsultarVentas(), this);
+            WinCtrlBoxTxt.Text = "Final Programación I - Consultar Ventas";
+        }
+
         private void logOutBtn_Click(object sender, EventArgs e)
         {
             DialogResult response = MessageBox.Show("Está seguro que desea cerrar sesión?", "Confirmar cierre de sesión", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -60,6 +73,22 @@ namespace FINAL_PROGRAMACIÓN_I.Formularios
         private void timer1_Tick(object sender, EventArgs e)
         {
             fechaBarTxt.Text = DateTime.Now.ToUniversalTime().ToString();
+        }
+
+        private void backupBtn_Click(object sender, EventArgs e)
+        {
+            string procedureName = "spu_backup";
+            try
+            {
+                SqlCommand cmd = new SqlCommand(procedureName, new Conexion().Connect());
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.ExecuteNonQuery();
+                MessageBox.Show("Backup realizado con éxito.", "Backup", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("Ocurrió un error al realizar el backup: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

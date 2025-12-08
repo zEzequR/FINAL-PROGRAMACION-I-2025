@@ -118,6 +118,19 @@ namespace FINAL_PROGRAMACIÓN_I.Formularios
             }
         }
 
+        private void btnImprimir_Click(object sender, EventArgs e)
+        {
+            DataTable dtClientes = (DataTable)clientsTable.DataSource;
+
+            if (dtClientes.Columns.Contains("Razón Social"))
+            {
+                dtClientes.Columns["Razón Social"].ColumnName = "RazonSocial";
+            }
+
+            frmReportes frmReportes = new frmReportes(this, dtClientes);
+            frmReportes.ShowDialog();
+        }
+
         private void confirmBtn_Click(object sender, EventArgs e)
         {
             switch (confirmBtn.Text) 
@@ -212,11 +225,39 @@ namespace FINAL_PROGRAMACIÓN_I.Formularios
                     break;
                 case "Ver":
                     Debug.WriteLine("ver");
+                    int.TryParse(idClientInp.Text, out int id4);
+                    string razon_social = clientNameInp.Text;
+
+
+                    Cliente cliente = new Cliente(id4, razon_social);
+
+                    if (verTodosCheckbox.Checked)
+                    {
+                        controladores.MostrarDatos("spu_mostrar_clientes",
+                            clientsTable,
+                            new List<string> { },
+                            new List<object> { },
+                            false
+                            );
+                    }
+                    else
+                    {
+                        controladores.MostrarDatos("spu_mostrar_clientes",
+                            clientsTable,
+                            new List<string> { "@id_cliente", "@razon_social" },
+                            new List<object> { 
+                                verXIDCheckbox.Checked ? (object)cliente.id_cliente : DBNull.Value,
+                                verXNombreCheckbox.Checked ? (object)cliente.razon_social : DBNull.Value
+                            },
+                            true
+                            );
+                    }
                     break;
                 default:
                     MessageBox.Show("Porfavor, seleccione una opción", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     break;
             }
+
         }
 
         private void ResetAndDisableCheckboxes()

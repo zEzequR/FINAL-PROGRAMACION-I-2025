@@ -85,7 +85,7 @@ namespace FINAL_PROGRAMACIÓN_I.Formularios
                 Venta venta = new Venta(idVta, DateTime.Now.ToUniversalTime(), Convert.ToInt32(clientSelect.SelectedValue?.ToString()) ,imp, frmLogin.id);
                 controladores.subirDatos("spu_cargar_venta",
                 new List<string> { "@id_venta", "@fecha", "@id_cliente", "@id_usuario" },
-                new List<object> { venta.id_venta, venta.fecha, venta.id_cliente,  venta.id_cliente },
+                new List<object> { venta.id_venta, venta.fecha, venta.id_cliente,  venta.id_usuario },
                 'A'
                 );
 
@@ -109,7 +109,7 @@ namespace FINAL_PROGRAMACIÓN_I.Formularios
 
         private void searchProdInp_KeyPress(object sender, KeyPressEventArgs e)
         {
-            Producto producto = new Producto(0, searchProdInp.Text, 0, 0);
+            Producto producto = new Producto(0, searchProdInp.Text, 0, 0, 0);
             controladores.MostrarDatos("spu_buscar_producto",
                 prodsTable,
                 new List<string> { "@desc" },
@@ -126,7 +126,7 @@ namespace FINAL_PROGRAMACIÓN_I.Formularios
                 return;
             }
 
-            if (int.TryParse(prodsTable.Rows[e.RowIndex].Cells[2].Value.ToString(), out int stock))
+            if (int.TryParse(prodsTable.Rows[e.RowIndex].Cells[3].Value.ToString(), out int stock))
             {
                 for (int i = 0; i < stock; i++)
                 {
@@ -136,8 +136,9 @@ namespace FINAL_PROGRAMACIÓN_I.Formularios
 
             Producto prod = new Producto(Convert.ToInt32(prodsTable.Rows[e.RowIndex].Cells[0].Value),
                 Convert.ToString(prodsTable.Rows[e.RowIndex].Cells[1].Value),
-                Convert.ToInt32(prodsTable.Rows[e.RowIndex].Cells[2].Value),
-                Convert.ToDecimal(prodsTable.Rows[e.RowIndex].Cells[3].Value)
+                0,
+                Convert.ToInt32(prodsTable.Rows[e.RowIndex].Cells[3].Value),
+                Convert.ToDecimal(prodsTable.Rows[e.RowIndex].Cells[4].Value)
                 );
 
 
@@ -188,8 +189,9 @@ namespace FINAL_PROGRAMACIÓN_I.Formularios
 
             Producto prod = new Producto(Convert.ToInt32(prodsTable.CurrentRow.Cells[0].Value),
                 Convert.ToString(prodsTable.CurrentRow.Cells[1].Value),
-                Convert.ToInt32(prodsTable.CurrentRow.Cells[2].Value),
-                Convert.ToDecimal(prodsTable.CurrentRow.Cells[3].Value)
+                0,
+                Convert.ToInt32(prodsTable.CurrentRow.Cells[3].Value),
+                Convert.ToDecimal(prodsTable.CurrentRow.Cells[4].Value)
                 );
 
             DetalleVta detVta = new DetalleVta(controladores.getLastID("spu_id_nuevo_detalleVta"),
@@ -265,6 +267,46 @@ namespace FINAL_PROGRAMACIÓN_I.Formularios
                     'U'
                     );
 
+                MessageBox.Show("Venta cerrada con éxito", "Venta cerrada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                DialogResult printResponse = MessageBox.Show("Desea imprimir el comprobante de la venta?", "Imprimir comprobante", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (printResponse == DialogResult.Yes)
+                {
+                    DataGridView ventaTable = new DataGridView();
+
+                    Venta venta = new Venta(Convert.ToInt32(idVtaInp.Text),
+                        DateTime.Now.ToUniversalTime(),
+                        Convert.ToInt32(clientSelect.SelectedValue?.ToString()),
+                        Convert.ToDecimal(importeVtaInp.Text),
+                        frmLogin.id);
+
+                    controladores.MostrarDatos(
+                        "spu_mostrar_detalle_venta_V2",
+                        ventaTable,
+                        new List<string> { "@id_vta", "@fecha", "@id_cliente", "@importe", "@id_usuario" },
+                        new List<object> {
+                            venta.id_venta,
+                            DBNull.Value,
+                            venta.id_cliente,
+                            venta.importe,
+                            venta.id_usuario
+                        },
+                        true
+                        );
+
+                    DataTable dtVenta = (DataTable)ventaTable.DataSource;
+
+                    if (dtVenta.Columns.Contains("Código del producto"))
+                    {
+                        dtVenta.Columns["Código del producto"].ColumnName = "CodProd";
+                    }
+
+                    frmReportes reporteVta = new frmReportes(this, dtVenta);
+                    reporteVta.ShowDialog();
+                }
+
+
                 controladores.LimpiarCampos( new List<BunifuTextBox> { idVtaInp, importeVtaInp } );
 
                 VentaTable.DataSource = null;
@@ -302,6 +344,7 @@ namespace FINAL_PROGRAMACIÓN_I.Formularios
                 );
 
             prodsTable.DataSource = productos;
+
         }
     }
 }

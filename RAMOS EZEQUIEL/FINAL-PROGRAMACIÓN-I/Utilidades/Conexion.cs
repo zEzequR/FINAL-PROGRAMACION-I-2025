@@ -11,7 +11,7 @@ namespace FINAL_PROGRAMACIÓN_I.Utilidades
 {
     internal class Conexion
     {
-        private static string strConn = "Data Source=DESKTOP-LI61DPP\\SQLEXPRESS;Initial Catalog=Comercio;User ID=sa;Password=45505886";
+        private static string strConn = "Data Source=Eze\\SQLEXPRESS;Initial Catalog=Comercio;User ID=sa;Password=45505886";
         //"Data Source=EZE\\SQLEXPRESS;Initial Catalog=Comercio;User ID=sa;Password=45505886"
         private static SqlConnection connection = new SqlConnection(strConn);
         private SqlCommand cmd = new SqlCommand();
